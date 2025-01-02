@@ -1,3 +1,4 @@
+import 'package:delivery_app/features/authentication/views/signup/register_screen.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:delivery_app/utils/storage/cache_helper.dart';
 import 'package:delivery_app/utils/theme/theme.dart';
@@ -26,13 +27,7 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
         darkTheme: TAppTheme.darkTheme,
-        // initialRoute: AppRoutes.signin,
-        // getPages: AppRoutes.routes,
-        // translations: TAppTranslations(),
-        // locale: const Locale('en'),
-        // fallbackLocale: const Locale('en'),
-        // initialBinding: SigninBinding(),
-        home: const OrderScreen(),
+        home: const SignupScreen(),
       ),
     );
   }
