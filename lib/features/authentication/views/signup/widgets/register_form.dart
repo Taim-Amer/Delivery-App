@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:delivery_app/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:delivery_app/features/authentication/views/signin/login_screen.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/validators/validation.dart';
+import 'package:delivery_app/utils/services/image_services.dart'; // استيراد الكلاس
 
 class RegisterForm extends StatelessWidget {
   const RegisterForm({super.key});
@@ -14,42 +18,61 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Form(
-        // key: SignupController.instance.signupFormState,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            ValueListenableBuilder<List<File>>(
+              valueListenable: TImageServices.selectedImages,
+              builder: (context, images, child) {
+                return GestureDetector(
+                  onTap: () => TImageServices.pickSingleImage(),
+                  child: TRoundedContainer(
+                    radius: 50,
+                    showBorder: true,
+                    padding: const EdgeInsets.all(40),
+                    // backgroundColor: TColors.grey,
+                    // backgroundImage: images.isNotEmpty ? FileImage(images.first) : null,
+                    child: images.isEmpty ? const Icon(Iconsax.camera, size: 50, color: Colors.grey) : null,
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: TSizes.spaceBtwInputField),
             Row(
               children: [
                 Expanded(
                   child: TextFormField(
-                    // controller: SignupController.instance.carNumberController,
                     cursorColor: TColors.primary,
-                    validator: (value) => TValidator.validateEmptyText("First Name", value),
+                    validator: (value) =>
+                        TValidator.validateEmptyText("First Name", value),
                     expands: false,
-                    decoration: const InputDecoration(hintText: "First Name", prefixIcon: Icon(Iconsax.user)),
+                    decoration: const InputDecoration(
+                        hintText: "First Name", prefixIcon: Icon(Iconsax.user)),
                   ),
                 ),
-                const SizedBox(width: TSizes.spaceBtwInputField,),
+                const SizedBox(
+                  width: TSizes.spaceBtwInputField,
+                ),
                 Expanded(
                   child: TextFormField(
-                    // controller: SignupController.instance.typeController,
-                    validator: (value) => TValidator.validateEmptyText("Last Name", value),
+                    validator: (value) =>
+                        TValidator.validateEmptyText("Last Name", value),
                     expands: false,
-                    decoration: const InputDecoration(hintText: "Last Name", prefixIcon: Icon(Iconsax.user)),
+                    decoration: const InputDecoration(
+                        hintText: "Last Name", prefixIcon: Icon(Iconsax.user)),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: TSizes.spaceBtwInputField,),
+            const SizedBox(height: TSizes.spaceBtwInputField),
             TextFormField(
-              // controller: SignupController.instance.phoneNumberController,
               validator: (value) => TValidator.validatePhoneNumber(value),
               expands: false,
-              decoration: const InputDecoration(hintText: "Phone Number", prefixIcon: Icon(Iconsax.call)),
+              decoration: const InputDecoration(
+                  hintText: "Phone Number", prefixIcon: Icon(Iconsax.call)),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputField,),
+            const SizedBox(height: TSizes.spaceBtwInputField),
             TextFormField(
-              // controller: SignupController.instance.passwordController,
               validator: (value) => TValidator.validatePassword(value),
               obscureText: true,
               decoration: const InputDecoration(
@@ -57,7 +80,7 @@ class RegisterForm extends StatelessWidget {
                 prefixIcon: Icon(Iconsax.password_check),
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputField,),
+            const SizedBox(height: TSizes.spaceBtwInputField),
             SizedBox(
               width: double.infinity,
               height: 50.h,
@@ -66,11 +89,12 @@ class RegisterForm extends StatelessWidget {
                 child: const Text("Create Account"),
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputField,),
+            const SizedBox(height: TSizes.spaceBtwInputField),
             SizedBox(
               width: double.infinity,
               child: TextButton(
-                onPressed: () => Get.offAll(const SigninScreen(), transition: Transition.rightToLeft),
+                onPressed: () => Get.offAll(const SigninScreen(),
+                    transition: Transition.rightToLeft),
                 child: const Text("Already have an account"),
               ),
             ),

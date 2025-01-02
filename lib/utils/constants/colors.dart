@@ -5,8 +5,8 @@ class TColors {
 
   // App Basic Colors
   // static const Color primary = Color(0xFF00B99C);
-  static const Color primary = Colors.indigoAccent;
-  // static const Color primary = Color(0xFFCD5D67);
+  // static const Color primary = Colors.indigoAccent;
+  static const Color primary = Color(0xFFFAA381);
   // static const Color primary = Color(0xFF449DD1);
   static const Color secondary = Color(0xFFFFE23B);
   static const Color accent = Color(0xFFB0C7FF);
