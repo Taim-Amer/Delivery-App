@@ -1,5 +1,5 @@
-import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:delivery_app/utils/constants/colors.dart';
 
 class TCircularContainer extends StatelessWidget {
   const TCircularContainer({
@@ -32,7 +32,6 @@ class TCircularContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           color: backgroundColor
       ),
-      child: Center(child: child),
     );
   }
 }

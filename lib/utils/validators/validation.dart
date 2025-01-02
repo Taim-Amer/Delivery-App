@@ -1,23 +1,21 @@
-import 'package:delivery_app/localization/keys.dart';
-
 class TValidator {
 
   static String? validateEmptyText(String? fieldName, String? value){
     if(value == null || value.isEmpty){
-      return '${TranslationKey.kEmptyValidation}$fieldName';
+      return 'You must enter $fieldName';
     }
     return null;
   }
 
   static String? validateEmail(String? value) {
     if(value == null || value.isEmpty){
-      return TranslationKey.kEmailInvalid;
+      return "The Email is Required";
     }
 
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
     if(!emailRegExp.hasMatch(value)){
-      return TranslationKey.kEmailInvalid;
+      return "The Email Address is Invalid";
     }
     return null;
   }
@@ -48,7 +46,7 @@ class TValidator {
 
   static String? validatePhoneNumber(String? value) {
     if(value == null || value.isEmpty){
-      return TranslationKey.kPhoneValidation ;
+      return "Phone required";
     }
 
     // final phoneRegExp = RegExp(r'^\d{10}$');

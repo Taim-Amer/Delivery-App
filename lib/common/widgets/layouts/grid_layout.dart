@@ -1,5 +1,5 @@
-import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:delivery_app/utils/constants/sizes.dart';
 
 class TGridLayout extends StatelessWidget {
   const TGridLayout({

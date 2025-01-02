@@ -1,10 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
-import 'package:flutter/material.dart';
 
 class TRoundedContainer extends StatelessWidget {
-  const TRoundedContainer({
-    super.key,
+  const TRoundedContainer({super.key,
     this.width,
     this.height,
     this.padding,
@@ -14,8 +13,6 @@ class TRoundedContainer extends StatelessWidget {
     this.showBorder = false,
     this.borderColor = TColors.borderPrimary,
     this.backgroundColor = TColors.white,
-    this.boxShadow,
-    this.showShadow = false,
   });
 
   final double? width;
@@ -27,8 +24,6 @@ class TRoundedContainer extends StatelessWidget {
   final Color backgroundColor;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
-  final List<BoxShadow>? boxShadow;
-  final bool showShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +36,6 @@ class TRoundedContainer extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(radius),
         border: showBorder ? Border.all(color: borderColor) : null,
-        boxShadow: showShadow
-            ? (boxShadow ?? [])
-            : null,
       ),
       child: child,
     );

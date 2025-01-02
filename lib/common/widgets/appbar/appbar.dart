@@ -1,15 +1,18 @@
-import 'package:delivery_app/common/widgets/buttons/back_icon.dart';
-import 'package:delivery_app/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:delivery_app/utils/constants/sizes.dart';
+import 'package:delivery_app/utils/device/device_utility.dart';
 
 class TAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const TAppBar(
-      {super.key,
-      this.title,
-      this.leadingIcon,
-      this.actions,
-      this.leadingOnPressed,
-      this.showBackArrow = false});
+  const TAppBar({
+    super.key,
+    this.title,
+    this.leadingIcon,
+    this.actions,
+    this.leadingOnPressed,
+    this.showBackArrow = false
+  });
 
   final Widget? title;
   final bool showBackArrow;
@@ -19,14 +22,16 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      leading: showBackArrow
-          ? const BackIcon() : leadingIcon != null
-              ? IconButton(
-                  onPressed: leadingOnPressed, icon: Icon(leadingIcon)) : null,
-      title: title,
-      actions: actions,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: TSizes.md),
+      child: AppBar(
+        automaticallyImplyLeading: false,
+        leading: showBackArrow
+            ? IconButton(onPressed: () => Get.back(), icon: const Icon(Iconsax.arrow_left))
+            : leadingIcon != null ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon)) : null,
+        title: title,
+        actions: actions,
+      ),
     );
   }
 
