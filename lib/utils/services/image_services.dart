@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TImageServices {
   TImageServices._();
 
-  static final ValueNotifier<List<File>> selectedImages = ValueNotifier([]);
+  static final ValueNotifier<List<dynamic>> selectedImages = ValueNotifier([]);
   static final ValueNotifier<bool> isSelected = ValueNotifier(false);
   static final ImagePicker _picker = ImagePicker();
 
@@ -17,7 +16,12 @@ class TImageServices {
     );
 
     if (image != null) {
-      selectedImages.value = [File(image.path)];
+      if (kIsWeb) {
+        final Uint8List webImage = await image.readAsBytes();
+        selectedImages.value = [webImage];
+      } else {
+        selectedImages.value = [File(image.path)];
+      }
       isSelected.value = true;
     }
   }
@@ -27,15 +31,15 @@ class TImageServices {
       imageQuality: 80,
     );
 
-    List<File> files = images.map((xFile) => File(xFile.path)).toList();
-    selectedImages.value = files;
-    isSelected.value = files.isNotEmpty;
-  }
-
-  static void deleteImageByName(String fileName) {
-    selectedImages.value.removeWhere((file) {
-      return file.path.split('/').last == fileName;
-    });
+    if (kIsWeb) {
+      List<Uint8List> webImages = await Future.wait(
+        images.map((xFile) => xFile.readAsBytes()),
+      );
+      selectedImages.value = webImages;
+    } else {
+      List<File> files = images.map((xFile) => File(xFile.path)).toList();
+      selectedImages.value = files;
+    }
     isSelected.value = selectedImages.value.isNotEmpty;
   }
 

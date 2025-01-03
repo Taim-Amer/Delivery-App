@@ -1,6 +1,5 @@
-import 'dart:io';
-import 'package:delivery_app/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:delivery_app/features/authentication/views/signin/login_screen.dart';
+import 'package:delivery_app/features/authentication/views/signup/widgets/register_image_picker.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/validators/validation.dart';
-import 'package:delivery_app/utils/services/image_services.dart';
+
 
 class RegisterForm extends StatelessWidget {
   const RegisterForm({super.key});
@@ -22,27 +21,7 @@ class RegisterForm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ValueListenableBuilder<List<File>>(
-                valueListenable: TImageServices.selectedImages,
-                builder: (context, images, child) {
-                  return GestureDetector(
-                    onTap: () => TImageServices.pickSingleImage(),
-                    child: TRoundedContainer(
-                      radius: 30,
-                      width: 130,
-                      height: 130,
-                      showBorder: true,
-                      child: images.isNotEmpty ? ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Image.file(
-                          images.first,
-                          fit: BoxFit.cover,
-                        ),
-                      ) : const Icon(Iconsax.camera, size: 50, color: Colors.grey),
-                    ),
-                  );
-                },
-              ),
+              const RegisterImagePicker(),
               const SizedBox(height: TSizes.spaceBtwSections),
               Row(
                 children: [
