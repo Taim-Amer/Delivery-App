@@ -8,7 +8,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/validators/validation.dart';
 
-
 class RegisterForm extends StatelessWidget {
   const RegisterForm({super.key});
 
@@ -30,8 +29,7 @@ class RegisterForm extends StatelessWidget {
                       cursorColor: TColors.primary,
                       validator: (value) => TValidator.validateEmptyText("First Name", value),
                       expands: false,
-                      decoration: const InputDecoration(
-                          hintText: "First Name", prefixIcon: Icon(Iconsax.user)),
+                      decoration: const InputDecoration(hintText: "First Name", prefixIcon: Icon(Iconsax.user)),
                     ),
                   ),
                   const SizedBox(
@@ -39,11 +37,9 @@ class RegisterForm extends StatelessWidget {
                   ),
                   Expanded(
                     child: TextFormField(
-                      validator: (value) =>
-                          TValidator.validateEmptyText("Last Name", value),
+                      validator: (value) => TValidator.validateEmptyText("Last Name", value),
                       expands: false,
-                      decoration: const InputDecoration(
-                          hintText: "Last Name", prefixIcon: Icon(Iconsax.user)),
+                      decoration: const InputDecoration(hintText: "Last Name", prefixIcon: Icon(Iconsax.user)),
                     ),
                   ),
                 ],
@@ -52,17 +48,13 @@ class RegisterForm extends StatelessWidget {
               TextFormField(
                 validator: (value) => TValidator.validatePhoneNumber(value),
                 expands: false,
-                decoration: const InputDecoration(
-                    hintText: "Phone Number", prefixIcon: Icon(Iconsax.call)),
+                decoration: const InputDecoration(hintText: "Phone Number", prefixIcon: Icon(Iconsax.call)),
               ),
               const SizedBox(height: TSizes.spaceBtwInputField),
               TextFormField(
                 validator: (value) => TValidator.validatePassword(value),
                 obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: "Password",
-                  prefixIcon: Icon(Iconsax.password_check),
-                ),
+                decoration: const InputDecoration(hintText: "Password", prefixIcon: Icon(Iconsax.password_check)),
               ),
               const SizedBox(height: TSizes.spaceBtwInputField),
               SizedBox(
@@ -77,8 +69,7 @@ class RegisterForm extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () => Get.offAll(const SigninScreen(),
-                      transition: Transition.rightToLeft),
+                  onPressed: () => Get.offAll(const SigninScreen(), transition: Transition.rightToLeft),
                   child: const Text("Already have an account"),
                 ),
               ),
