@@ -1,4 +1,5 @@
 import 'package:delivery_app/features/authentication/controllers/auth_controller.dart';
+import 'package:delivery_app/features/authentication/repositories/auth_repo_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:delivery_app/features/authentication/views/signup/widgets/register_form.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
@@ -10,6 +11,7 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put<AuthController>(AuthController());
+    Get.put<AuthRepositoryImpl>(AuthRepositoryImpl());
     return Scaffold(
       appBar: AppBar(),
       body: const Padding(

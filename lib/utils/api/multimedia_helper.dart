@@ -61,7 +61,7 @@ class TMultiMediaHelper {
   }) async {
     try {
       dio.options.headers = {
-        'Authorization': 'Bearer $token',
+        'Authorization': token != null ? 'Bearer $token' : '',
         'Content-Type': 'multipart/form-data',
       };
 
