@@ -2,6 +2,7 @@ import 'package:delivery_app/common/widgets/alerts/snackbar.dart';
 import 'package:delivery_app/features/authentication/repositories/auth_repo_impl.dart';
 import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
+import 'package:delivery_app/utils/logging/logger.dart';
 import 'package:delivery_app/utils/services/image_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,6 +70,7 @@ class AuthController extends GetxController{
       showSnackBar(response.message!, AlertState.success);
     }).catchError((error){
       THelperFunctions.updateApiStatus(target: signupApiStatus, value: RequestState.error);
+      TLoggerHelper.error(error.toString());
       showSnackBar("An error occurred, please try again", AlertState.error);
     });
   }

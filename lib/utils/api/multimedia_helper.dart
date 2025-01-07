@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:delivery_app/utils/constants/api_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -55,8 +57,7 @@ class TMultiMediaHelper {
   Future<Map<String, dynamic>> postWithImage({
     required String endPoint,
     String? token,
-    required List<int> imageBytes,
-    required String imageName,
+    required File imageFile,
     Map<String, dynamic>? additionalData,
   }) async {
     try {
@@ -67,9 +68,9 @@ class TMultiMediaHelper {
 
       FormData formData = FormData.fromMap({
         ...?additionalData,
-        'image': MultipartFile.fromBytes(
-          imageBytes,
-          filename: imageName,
+        'image': await MultipartFile.fromFile(
+          imageFile.path,
+          filename: imageFile.path.split('/').last,
         ),
       });
 
