@@ -49,7 +49,7 @@ class AuthController extends GetxController{
 
   Future<void> signup() async{
     THelperFunctions.updateApiStatus(target: signupApiStatus, value: RequestState.loading);
-    if(!signinFormKey.currentState!.validate()){
+    if(!signupFormKey.currentState!.validate()){
       THelperFunctions.updateApiStatus(target: signupApiStatus, value: RequestState.begin);
       return;
     }

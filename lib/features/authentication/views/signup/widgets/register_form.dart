@@ -1,3 +1,4 @@
+import 'package:delivery_app/features/authentication/controllers/auth_controller.dart';
 import 'package:delivery_app/features/authentication/views/signin/login_screen.dart';
 import 'package:delivery_app/features/authentication/views/signup/widgets/register_image_picker.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
@@ -15,6 +16,7 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
+        key: AuthController.instance.signupFormKey,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -26,8 +28,9 @@ class RegisterForm extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller: AuthController.instance.registerFirstNameController,
                       cursorColor: TColors.primary,
-                      validator: (value) => TValidator.validateEmptyText("First Name", value),
+                      validator: (value) => TValidator.validateEmptyText("name", value),
                       expands: false,
                       decoration: const InputDecoration(hintText: "First Name", prefixIcon: Icon(Iconsax.user)),
                     ),
@@ -37,7 +40,8 @@ class RegisterForm extends StatelessWidget {
                   ),
                   Expanded(
                     child: TextFormField(
-                      validator: (value) => TValidator.validateEmptyText("Last Name", value),
+                      controller: AuthController.instance.registerLastNameController,
+                      validator: (value) => TValidator.validateEmptyText("name", value),
                       expands: false,
                       decoration: const InputDecoration(hintText: "Last Name", prefixIcon: Icon(Iconsax.user)),
                     ),
@@ -46,12 +50,14 @@ class RegisterForm extends StatelessWidget {
               ),
               const SizedBox(height: TSizes.spaceBtwInputField),
               TextFormField(
+                controller: AuthController.instance.registerPhoneController,
                 validator: (value) => TValidator.validatePhoneNumber(value),
                 expands: false,
                 decoration: const InputDecoration(hintText: "Phone Number", prefixIcon: Icon(Iconsax.call)),
               ),
               const SizedBox(height: TSizes.spaceBtwInputField),
               TextFormField(
+                controller: AuthController.instance.registerPasswordController,
                 validator: (value) => TValidator.validatePassword(value),
                 obscureText: true,
                 decoration: const InputDecoration(hintText: "Password", prefixIcon: Icon(Iconsax.password_check)),
@@ -61,7 +67,7 @@ class RegisterForm extends StatelessWidget {
                 width: double.infinity,
                 height: 50.h,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => AuthController.instance.signup(),
                   child: const Text("Create Account"),
                 ),
               ),
