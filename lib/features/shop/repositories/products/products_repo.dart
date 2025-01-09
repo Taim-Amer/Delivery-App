@@ -12,15 +12,15 @@ import 'package:delivery_app/features/shop/models/update_cart_model.dart';
 abstract class ProductsRepo{
   Future<ProductModel> getAllProducts();
   Future<ProductDetailsModel> getProductsDetails({required int productID});
-  //
+
   Future<AddToCartModel> addToCart({required int productID, required int quantity});
   Future<GetCartItemsModel> getCartItems();
   Future<ApplyModel> apply();
   Future<UpdateCartModel> update({required int productID});
   Future<DeleteCartModel> delete({required int productID});
-  //
+
   Future<FavouriteModel> getAllFavourites();
   Future<AddFavouriteModel> addFavourite({required int productID});
   Future<DeleteFavouriteModel> deleteFavourite({required int productID});
-  //
+
 }

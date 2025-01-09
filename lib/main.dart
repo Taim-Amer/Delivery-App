@@ -1,4 +1,5 @@
 import 'package:delivery_app/features/authentication/views/signup/register_screen.dart';
+import 'package:delivery_app/navigation_menu.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:delivery_app/utils/storage/cache_helper.dart';
 import 'package:delivery_app/utils/theme/theme.dart';
@@ -27,7 +28,7 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
         darkTheme: TAppTheme.darkTheme,
-        home: const SignupScreen(),
+        home: const NavigationMenu(),
       ),
     );
   }
