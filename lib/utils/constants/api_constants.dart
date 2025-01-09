@@ -22,4 +22,20 @@ class TApiConstants {
 
   static const String getProductDetails = 'products';
 
+  static const String addFavourite = 'favorites';
+
+  static const String deleteFavourite = 'favorites';
+
+  static const String getFavourite = 'favorites';
+
+  static const String getCart = 'shoppings';
+
+  static const String addCart = 'shoppings';
+
+  static const String deleteCart = 'shoppings';
+
+  static const String updateCart = 'shoppings';
+
+  static const String apply = 'shoppings/apply';
+
 }

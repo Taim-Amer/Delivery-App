@@ -1,5 +1,13 @@
+import 'package:delivery_app/features/shop/models/add_favourite_model.dart';
+import 'package:delivery_app/features/shop/models/add_to_cart_model.dart';
+import 'package:delivery_app/features/shop/models/apply_model.dart';
+import 'package:delivery_app/features/shop/models/delete_cart_model.dart';
+import 'package:delivery_app/features/shop/models/delete_favourite_model.dart';
+import 'package:delivery_app/features/shop/models/favourite_model.dart';
+import 'package:delivery_app/features/shop/models/get_cart_items_model.dart';
 import 'package:delivery_app/features/shop/models/product_details_model.dart';
 import 'package:delivery_app/features/shop/models/product_model.dart';
+import 'package:delivery_app/features/shop/models/update_cart_model.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo.dart';
 import 'package:delivery_app/utils/api/dio_helper.dart';
 import 'package:delivery_app/utils/constants/api_constants.dart';
@@ -24,6 +32,86 @@ class ProductsRepoImpl implements ProductsRepo{
       "${TApiConstants.getProductDetails}/$productID",
       token: token,
     ).then((response) => ProductDetailsModel.fromJson(response));
+  }
+
+  @override
+  Future<AddFavouriteModel> addFavourite({required int productID}) async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.post(
+      TApiConstants.addFavourite,
+      {
+        'product_id' : productID
+      },
+    ).then((response) => AddFavouriteModel.fromJson(response));
+  }
+
+  @override
+  Future<AddToCartModel> addToCart({required int productID, required int quantity}) async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.post(
+      TApiConstants.addCart,
+      {
+        'product_id' : productID,
+        'quantity' : quantity
+      },
+      token: token,
+    ).then((response) => AddToCartModel.fromJson(response));
+  }
+
+  @override
+  Future<ApplyModel> apply() async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.get(
+      TApiConstants.apply,
+      token: token,
+    ).then((response) => ApplyModel.fromJson(response));
+  }
+
+  @override
+  Future<DeleteCartModel> delete({required int productID}) async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.delete(
+      "${TApiConstants.deleteCart}/$productID",
+      token: token,
+    ).then((response) => DeleteCartModel.fromJson(response));
+  }
+
+  @override
+  Future<DeleteFavouriteModel> deleteFavourite({required int productID}) async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.post(
+      "${TApiConstants.deleteFavourite}/$productID",
+      token: token,
+      {},
+    ).then((response) => DeleteFavouriteModel.fromJson(response));
+  }
+
+  @override
+  Future<FavouriteModel> getAllFavourites() async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.get(
+      TApiConstants.getFavourite,
+      token: token,
+    ).then((response) => FavouriteModel.fromJson(response));
+  }
+
+  @override
+  Future<GetCartItemsModel> getCartItems() async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.get(
+      TApiConstants.getCart,
+      token: token,
+    ).then((response) => GetCartItemsModel.fromJson(response));
+  }
+
+  @override
+  Future<UpdateCartModel> update({required int productID}) async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.put(
+      "${TApiConstants.updateCart}/$productID",
+      {},
+      token: token,
+    ).then((response) => UpdateCartModel.fromJson(response));
   }
 
 }
