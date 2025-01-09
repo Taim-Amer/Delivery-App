@@ -1,3 +1,4 @@
+import 'package:delivery_app/features/shop/views/home/home_screen.dart';
 import 'package:delivery_app/features/shop/views/products/products_screen.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
@@ -37,7 +38,7 @@ class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [
-    const ProductsScreen(),
+    const HomeScreen(),
     const ProductsScreen(),
     const ProductsScreen(),
     const ProductsScreen(),

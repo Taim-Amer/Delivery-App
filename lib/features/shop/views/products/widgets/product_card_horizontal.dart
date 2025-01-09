@@ -31,7 +31,7 @@ class TProductCardHorizontal extends StatelessWidget {
             backgroundColor: dark ? TColors.dark : TColors.light,
             child: Stack(
               children: [
-                const SizedBox(height: 120, width: 120, child: TRoundedImage(imageUrl: "TImages.productImage1", applyImageRadius: true)),
+                const SizedBox(height: 120, width: 120, child: TRoundedImage(imageUrl: "assets/images/product1.png", applyImageRadius: true)),
                 Positioned(
                   top: 12,
                   child: TRoundedContainer(

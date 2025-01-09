@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:delivery_app/common/widgets/layouts/grid_layout.dart';
-import 'package:delivery_app/common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:delivery_app/features/shop/views/products/widgets/product_card_vertical.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 
 class TSortableProducts extends StatelessWidget {

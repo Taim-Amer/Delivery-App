@@ -1,13 +1,14 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:delivery_app/common/styles/spacing_styles.dart';
 import 'package:delivery_app/common/widgets/layouts/grid_layout.dart';
-import 'package:delivery_app/common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:delivery_app/features/shop/views/products/widgets/product_card_horizontal.dart';
+import 'package:delivery_app/features/shop/views/products/widgets/product_card_vertical.dart';
 import 'package:delivery_app/common/widgets/texts/section_heading.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/home_appbar.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/primary_header_container.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,12 +19,10 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            PrimaryHeaderContainer(
+            const PrimaryHeaderContainer(
               child: Column(
                 children: [
                   THomeAppBar(),
-                  // SizedBox(height: TSizes.spaceBtwSections,),
-                  // // TSearchContainer(text: "Search in Store",),
                   SizedBox(height: TSizes.spaceBtwSections,),
                   Padding(
                     padding: EdgeInsets.only(left: TSizes.defaultSpace),
@@ -34,20 +33,20 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(TSizes.defaultSpace),
+              padding: const EdgeInsets.all(TSizes.defaultSpace),
               child: Column(
                 children: [
-                  // TPromoSlider(
-                  //   banners: [
-                  //     TImages.promoBanner7,
-                  //     TImages.promoBanner5,
-                  //   ],
-                  // ),
-                  // SizedBox(height: TSizes.spaceBtwSections),
-
                   SectionHeading(title: "Popular Products", onPressed: () {}),
-                  SizedBox(height: TSizes.spaceBtwItems),
-
+                  SizedBox(
+                    height: 150.h,
+                    child: ListView.separated(
+                      itemCount: 3,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => const TProductCardHorizontal(),
+                      separatorBuilder: (_, index) => const SizedBox(width: TSizes.spaceBtwItems),
+                    ),
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                   TGridLayout(
                     itemCount: 4,
                     itemBuilder: (_, index) => const TProductCardVertical(),
