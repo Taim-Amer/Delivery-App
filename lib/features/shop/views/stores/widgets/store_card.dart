@@ -1,14 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:delivery_app/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:delivery_app/common/widgets/images/rounded_image.dart';
+import 'package:delivery_app/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:delivery_app/common/widgets/texts/product_title_text.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductCardHorizontal extends StatelessWidget {
-  const ProductCardHorizontal({super.key});
+class StoreCard extends StatelessWidget {
+  const StoreCard({super.key, required this.name, required this.location, required this.image, required this.represents, required this.storeID});
+
+  final String name;
+  final String location;
+  final String image;
+  final String represents;
+  final int storeID;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +35,23 @@ class ProductCardHorizontal extends StatelessWidget {
               height: 120,
               padding: const EdgeInsets.all(TSizes.sm),
               backgroundColor: dark ? TColors.dark : TColors.light,
-              child: const SizedBox(height: 120, width: 120, child: TRoundedImage(imageUrl: "assets/images/product1.png", applyImageRadius: true)),
+              child: SizedBox(height: 120, width: 120, child: TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true)),
             ),
           ),
-
-          const SizedBox(
-            width: 172,
-            child: TProductTitleText(title: "Green Nike Half Sleeve Shirt", smallSize: true),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TBrandTitleWithVerifiedIcon(title: name),
+              SizedBox(
+                width: 172,
+                child: TProductTitleText(title: location, smallSize: true),
+              ),
+              SizedBox(
+                width: 172,
+                child: TProductTitleText(title: represents, smallSize: true),
+              ),
+            ],
           )
         ],
       ),

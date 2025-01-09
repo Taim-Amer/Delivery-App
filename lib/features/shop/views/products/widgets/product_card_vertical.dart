@@ -12,8 +12,13 @@ import 'package:delivery_app/common/widgets/texts/product_title_text.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 
-class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical({super.key});
+class ProductCardVertical extends StatelessWidget {
+  const ProductCardVertical({super.key, required this.name, required this.price, required this.image, required this.productID});
+
+  final String name;
+  final int price;
+  final String image;
+  final int productID;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,7 @@ class TProductCardVertical extends StatelessWidget {
               backgroundColor: dark ? TColors.dark : TColors.light,
               child: Stack(
                 children: [
-                  const TRoundedImage(imageUrl: "assets/images/product1.png", applyImageRadius: true),
+                  TRoundedImage(imageUrl: image, applyImageRadius: true),
                   Positioned(
                     top: 12,
                     child: TRoundedContainer(
@@ -56,16 +61,16 @@ class TProductCardVertical extends StatelessWidget {
               ),
             ),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: TSizes.sm),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
               child: SizedBox(
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TProductTitleText(title: "Green Nike Air Shoes", smallSize: true),
-                    SizedBox(height: TSizes.spaceBtwItems / 2),
-                    TBrandTitleWithVerifiedIcon(title: "Nike",),
+                    TProductTitleText(title: name, smallSize: true),
+                    const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    TBrandTitleWithVerifiedIcon(title: name,),
                   ],
                 ),
               ),
@@ -74,9 +79,9 @@ class TProductCardVertical extends StatelessWidget {
             Row (
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: TSizes.sm),
-                  child: TProductPriceText(price: "35.5"),
+                Padding(
+                  padding: const EdgeInsets.only(left: TSizes.sm),
+                  child: TProductPriceText(price: price.toString()),
                 ),
                 Container(
                   decoration: const BoxDecoration(

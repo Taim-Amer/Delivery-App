@@ -18,6 +18,12 @@ class StoreController extends GetxController{
   final storeDetailsModel = StoreDetailsModel().obs;
   final storeProductsModel = StoreProductsModel().obs;
 
+  @override
+  void onReady() {
+    getAllStores();
+    super.onReady();
+  }
+
   Future<void> getAllStores() async{
     THelperFunctions.updateApiStatus(target: getStoresApiStatus, value: RequestState.loading);
     await StoreRepoImpl.instance.getAllStores().then((response){

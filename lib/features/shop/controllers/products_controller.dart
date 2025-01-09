@@ -39,6 +39,12 @@ class ProductsController extends GetxController{
   final addFavouriteModel = AddFavouriteModel().obs;
   final deleteFavouriteModel = DeleteFavouriteModel().obs;
 
+  @override
+  void onReady() {
+    getAllProducts();
+    super.onReady();
+  }
+
   Future<void> getAllProducts() async{
     THelperFunctions.updateApiStatus(target: getProductsApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.getAllProducts().then((response) {
