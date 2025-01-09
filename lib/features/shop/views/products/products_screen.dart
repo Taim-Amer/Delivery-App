@@ -1,3 +1,4 @@
+import 'package:delivery_app/common/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -5,6 +6,11 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      appBar: TAppBar(),
+      body: Center(
+        child: Text("Hala"),
+      ),
+    );
   }
 }

@@ -35,7 +35,7 @@ class LoginForm extends StatelessWidget {
               const SizedBox(height: TSizes.spaceBtwInputField),
               TextFormField(
                 controller: AuthController.instance.loginPasswordController,
-                // validator: (value) => TValidator.validatePassword(value),
+                validator: (value) => TValidator.validatePassword(value),
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Iconsax.password_check),
                   hintText: "Password",

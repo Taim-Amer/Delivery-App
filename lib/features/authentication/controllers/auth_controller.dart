@@ -1,9 +1,11 @@
 import 'package:delivery_app/common/widgets/alerts/snackbar.dart';
 import 'package:delivery_app/features/authentication/repositories/auth_repo_impl.dart';
+import 'package:delivery_app/features/authentication/views/signin/login_screen.dart';
+import 'package:delivery_app/features/shop/views/products/products_screen.dart';
 import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:delivery_app/utils/logging/logger.dart';
-import 'package:delivery_app/utils/services/image_services.dart';
+import 'package:delivery_app/utils/storage/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,32 +44,31 @@ class AuthController extends GetxController{
     ).then((response){
       THelperFunctions.updateApiStatus(target: signinApiStatus, value: RequestState.success);
       showSnackBar(response.message!, AlertState.success);
+      TCacheHelper.saveData(key: 'token', value: response.data!.accessToken);
+      Get.offAll(const ProductsScreen());
     }).catchError((error){
       THelperFunctions.updateApiStatus(target: signinApiStatus, value: RequestState.error);
       showSnackBar("An error occurred, please try again", AlertState.error);
     });
   }
 
-  Future<void> signup() async{
+  Future<void> signup() async {
     THelperFunctions.updateApiStatus(target: signupApiStatus, value: RequestState.loading);
-    if(!signupFormKey.currentState!.validate()){
+
+    if (!signupFormKey.currentState!.validate()) {
       THelperFunctions.updateApiStatus(target: signupApiStatus, value: RequestState.begin);
       return;
     }
 
-    dynamic selectedImage = TImageServices.selectedImages.value.isNotEmpty
-        ? TImageServices.selectedImages.value.first
-        : null;
-
     await AuthRepositoryImpl.instance.signup(
-      firstName: registerFirstNameController.text.toString(),
-      lastName: registerLastNameController.text.toString(),
-      phoneNumber: registerPhoneController.text.toString().trim(),
-      password: registerPasswordController.text.toString(),
-      location: 'taim',
-      image: selectedImage).then((response){
+        firstName: registerFirstNameController.text.toString(),
+        lastName: registerLastNameController.text.toString(),
+        phoneNumber: registerPhoneController.text.toString().trim(),
+        password: registerPasswordController.text.toString(),
+        location: 'taim').then((response){
       THelperFunctions.updateApiStatus(target: signupApiStatus, value: RequestState.success);
       showSnackBar(response.message!, AlertState.success);
+      Get.offAll(const SigninScreen());
     }).catchError((error){
       THelperFunctions.updateApiStatus(target: signupApiStatus, value: RequestState.error);
       TLoggerHelper.error(error.toString());

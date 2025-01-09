@@ -27,7 +27,7 @@ class RegisterFooter extends StatelessWidget {
           width: double.infinity,
           child: TextButton(
             onPressed: () => Get.offAll(const SigninScreen(), transition: Transition.rightToLeft),
-            child: const Text("Already have an account"),
+            child: const Text("Login"),
           ),
         ),
       ],

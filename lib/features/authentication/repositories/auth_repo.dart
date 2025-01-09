@@ -11,6 +11,6 @@ abstract class AuthRepository {
     required String phoneNumber,
     required String password,
     required String location,
-    required File image,
+    // required File image,
   });
 }
