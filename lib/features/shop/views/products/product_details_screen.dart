@@ -1,56 +1,61 @@
+import 'package:delivery_app/common/widgets/texts/product_price_text.dart';
 import 'package:delivery_app/common/widgets/texts/section_heading.dart';
+import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/views/products/widgets/add_cart_bottom_sheet.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/rating_share_widget.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/store_image.dart';
+import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
+import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:readmore/readmore.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.productID, required this.name, required this.price, required this.availableQuantity, required this.imageProduct, required this.productionDate, required this.expiryDate});
+
+  final int productID;
+  final String name;
+  final int price;
+  final int availableQuantity;
+  final String imageProduct;
+  final String productionDate;
+  final String expiryDate;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const AddCartBottomSheet(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const ProductImageSlider(image: "image"),
-            Padding(
-              padding: const EdgeInsets.only(right: TSizes.defaultSpace, left: TSizes.defaultSpace, bottom: TSizes.defaultSpace),
-              child: Column(
-                children: [
-                  const RatingAndShare(),
-                  // const TProductMetaData(),
-                  // const SizedBox(height: TSizes.spaceBtwSections,),
-                  // const TProductAttributes(),
-                  // const SizedBox(height: TSizes.spaceBtwSections),
-
-                  // SizedBox(width: double.infinity, child: ElevatedButton(onPressed: (){}, child: const Text("Checkout"))),
-                  // const SizedBox(height: TSizes.spaceBtwSections),
-
-                  const SectionHeading(title: "Description", showActionButton: false,),
-                  const SizedBox(height: TSizes.spaceBtwItems),
-
-                  // const ReadMoreText(
-                  //   "This is a Product description for Blue Nike Sleeve less vest. There are more things that can be added but I am just practicing and nothing else.This is a Product description for Blue Nike Sleeve less vest. There are more things that can be added but I am just practicing and nothing else.",
-                  //   trimMode: TrimMode.Line,
-                  //   trimLines: 3,
-                  //   trimCollapsedText: 'Show more',
-                  //   trimExpandedText: 'Show less',
-                  //   moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                  //   lessStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                  // ),
-
-                  const Divider(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                ],
-              ),
-            )
-          ],
+    final dark = THelperFunctions.isDarkMode(context);
+    return RefreshIndicator(
+      color: TColors.primary,
+      backgroundColor: dark ? TColors.dark : TColors.light,
+      onRefresh: () async{
+        await ProductsController.instance.getProductsDetails(productID: productID);
+      },
+      child: Scaffold(
+        bottomNavigationBar: const AddCartBottomSheet(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              ProductImageSlider(image: imageProduct),
+              Padding(
+                padding: const EdgeInsets.only(right: TSizes.defaultSpace, left: TSizes.defaultSpace, bottom: TSizes.defaultSpace),
+                child: Column(
+                  children: [
+                    const RatingAndShare(),
+                    const SizedBox(height: TSizes.spaceBtwSections,),
+                    SectionHeading(title: name, showActionButton: false,),
+                    const SizedBox(height: TSizes.spaceBtwItems),
+                    SectionHeading(title: availableQuantity.toString(), showActionButton: true, buttonTitle: "Available Quantity",),
+                    const SizedBox(height: TSizes.spaceBtwItems),
+                    SectionHeading(title: productionDate, showActionButton: true, buttonTitle: "Production Date"),
+                    const SizedBox(height: TSizes.spaceBtwItems),
+                    SectionHeading(title: expiryDate, showActionButton: true, buttonTitle: "Expiry Date"),
+                    const SizedBox(height: TSizes.spaceBtwItems),
+                    TProductPriceText(price: price.toString()),
+                    const SizedBox(height: TSizes.spaceBtwSections),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

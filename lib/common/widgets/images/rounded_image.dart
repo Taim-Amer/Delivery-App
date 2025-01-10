@@ -1,6 +1,8 @@
-import "package:flutter/material.dart";
-import "package:delivery_app/utils/constants/colors.dart";
-import "package:delivery_app/utils/constants/sizes.dart";
+import 'package:delivery_app/common/widgets/loaders/shimmer_loader.dart';
+import 'package:flutter/material.dart';
+import 'package:delivery_app/utils/constants/colors.dart';
+import 'package:delivery_app/utils/constants/sizes.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TRoundedImage extends StatelessWidget {
   const TRoundedImage({
@@ -37,10 +39,22 @@ class TRoundedImage extends StatelessWidget {
         width: width,
         height: height,
         padding: padding,
-        decoration: BoxDecoration(border: border, color: backgroundColor, borderRadius: BorderRadius.circular(borderRadius)),
+        decoration: BoxDecoration(
+          border: border,
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
         child: ClipRRect(
           borderRadius: applyImageRadius ? BorderRadius.circular(borderRadius) : BorderRadius.zero,
-          child: Image(image: isNetworkImage ? NetworkImage(imageUrl) : AssetImage(imageUrl) as ImageProvider, fit: fit),
+          child: isNetworkImage ? CachedNetworkImage(
+            imageUrl: imageUrl,
+            fit: fit,
+            placeholder: (context, url) => const ShimmerLoader(width: double.infinity, height: double.infinity),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ) : Image.asset(
+            imageUrl,
+            fit: fit,
+          ),
         ),
       ),
     );

@@ -16,6 +16,9 @@ class HomeProductsGrid extends StatelessWidget {
         price: productList?[index].price ?? 0,
         image: productList?[index].imageProduct ?? "",
         productID: productList?[index].id ?? 0,
+        availableQuantity: productList?[index].availableQuantity ?? 0,
+        productionDate: productList?[index].productionDate ?? "",
+        expiryDate: productList?[index].expiryDate ?? "",
       ),
       mainAxisExtent: 288,
     );

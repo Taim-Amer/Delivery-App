@@ -14,19 +14,21 @@ import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.name, required this.price, required this.image, required this.productID});
+  const ProductCard({super.key, required this.name, required this.price, required this.image, required this.productID, required this.availableQuantity, required this.productionDate, required this.expiryDate});
 
   final String name;
   final int price;
   final String image;
   final int productID;
+  final int availableQuantity;
+  final String productionDate;
+  final String expiryDate;
 
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-
     return GestureDetector(
-      onTap: () => Get.to(() => const ProductDetailsScreen()),
+      onTap: () => Get.to(() => ProductDetailsScreen(productID: productID, name: name, price: price, availableQuantity: availableQuantity, imageProduct: image, productionDate: productionDate, expiryDate: expiryDate)),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -39,13 +41,14 @@ class ProductCard extends StatelessWidget {
           children: [
             TRoundedContainer(
               height: 180,
+              width: double.infinity,
               padding: const EdgeInsets.all(TSizes.sm),
               backgroundColor: dark ? TColors.dark : TColors.light,
               child: Stack(
                 children: [
                   TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true),
                   Positioned(
-                    top: 12,
+                    bottom: 12,
                     child: TRoundedContainer(
                       radius: TSizes.sm,
                       backgroundColor: TColors.secondary.withOpacity(.8),
@@ -54,7 +57,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   const Positioned(
-                      top: 0,
+                      bottom: 0,
                       right: 0,
                       child: TCircularIcon(icon: Iconsax.heart5, color: Colors.red, width: 40, height: 40),
                   ),

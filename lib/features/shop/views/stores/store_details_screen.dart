@@ -1,5 +1,6 @@
 import 'package:delivery_app/common/widgets/texts/section_heading.dart';
-import 'package:delivery_app/features/shop/controllers/store_controller.dart';
+import 'package:delivery_app/features/shop/controllers/products_controller.dart';
+import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/rating_share_widget.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/store_image.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/store_products_list.dart';
@@ -7,6 +8,7 @@ import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class StoreDetailsScreen extends StatelessWidget {
   const StoreDetailsScreen({super.key, required this.name, required this.location, required this.image, required this.represents, required this.storeID});
@@ -24,7 +26,7 @@ class StoreDetailsScreen extends StatelessWidget {
       backgroundColor: dark ? TColors.dark : TColors.light,
       color: TColors.primary,
       onRefresh: () async{
-        StoreController.instance.getStoreProducts(storeID: storeID);
+        ProductsController.instance.getAllFavourites();
       },
       child: Scaffold(
         body: SingleChildScrollView(
