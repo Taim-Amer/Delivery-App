@@ -5,6 +5,7 @@ import 'package:delivery_app/features/shop/models/delete_cart_model.dart';
 import 'package:delivery_app/features/shop/models/delete_favourite_model.dart';
 import 'package:delivery_app/features/shop/models/favourite_model.dart';
 import 'package:delivery_app/features/shop/models/get_cart_items_model.dart';
+import 'package:delivery_app/features/shop/models/orders_model.dart';
 import 'package:delivery_app/features/shop/models/product_details_model.dart';
 import 'package:delivery_app/features/shop/models/product_model.dart';
 import 'package:delivery_app/features/shop/models/update_cart_model.dart';
@@ -22,5 +23,9 @@ abstract class ProductsRepo{
   Future<FavouriteModel> getAllFavourites();
   Future<AddFavouriteModel> addFavourite({required int productID});
   Future<DeleteFavouriteModel> deleteFavourite({required int productID});
+  //
+  Future<OrdersModel> getAllOrder();
+  Future<void> updateOrder({required int orderID, required int quantity});
+  Future<void> deleteOrder({required int orderID});
 
 }

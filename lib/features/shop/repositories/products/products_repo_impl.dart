@@ -5,6 +5,7 @@ import 'package:delivery_app/features/shop/models/delete_cart_model.dart';
 import 'package:delivery_app/features/shop/models/delete_favourite_model.dart';
 import 'package:delivery_app/features/shop/models/favourite_model.dart';
 import 'package:delivery_app/features/shop/models/get_cart_items_model.dart';
+import 'package:delivery_app/features/shop/models/orders_model.dart';
 import 'package:delivery_app/features/shop/models/product_details_model.dart';
 import 'package:delivery_app/features/shop/models/product_model.dart';
 import 'package:delivery_app/features/shop/models/update_cart_model.dart';
@@ -112,6 +113,24 @@ class ProductsRepoImpl implements ProductsRepo{
       {'quantity' : quantity},
       token: token,
     ).then((response) => UpdateCartModel.fromJson(response));
+  }
+
+  @override
+  Future<void> deleteOrder({required int orderID}) async{
+    final dioHelper = TDioHelper();
+    await dioHelper.delete("${TApiConstants.deleteOrder}/$orderID", token: token);
+  }
+
+  @override
+  Future<OrdersModel> getAllOrder() async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.get(TApiConstants.getAllOrders, token: token).then((response) => OrdersModel.fromJson(response));
+  }
+
+  @override
+  Future<void> updateOrder({required int orderID, required int quantity}) async{
+    final dioHelper = TDioHelper();
+    await dioHelper.put("${TApiConstants.updateOrder}/$orderID", token: token, {'quantity' : quantity});
   }
 
 }

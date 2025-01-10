@@ -6,6 +6,7 @@ import 'package:delivery_app/features/shop/models/delete_cart_model.dart';
 import 'package:delivery_app/features/shop/models/delete_favourite_model.dart';
 import 'package:delivery_app/features/shop/models/favourite_model.dart';
 import 'package:delivery_app/features/shop/models/get_cart_items_model.dart';
+import 'package:delivery_app/features/shop/models/orders_model.dart';
 import 'package:delivery_app/features/shop/models/product_details_model.dart';
 import 'package:delivery_app/features/shop/models/product_model.dart';
 import 'package:delivery_app/features/shop/models/update_cart_model.dart';
@@ -30,6 +31,7 @@ class ProductsController extends GetxController{
   Rx<RequestState> getFavouritesApiStatus = RequestState.begin.obs;
   Rx<RequestState> addFavouritesApiStatus = RequestState.begin.obs;
   Rx<RequestState> deleteFavouritesApiStatus = RequestState.begin.obs;
+  Rx<RequestState> getOrdersApiStatus = RequestState.begin.obs;
 
   final productsModel = ProductModel().obs;
   final productDetailsModel = ProductDetailsModel().obs;
@@ -41,16 +43,20 @@ class ProductsController extends GetxController{
   final favouritesModel = FavouriteModel().obs;
   final addFavouriteModel = AddFavouriteModel().obs;
   final deleteFavouriteModel = DeleteFavouriteModel().obs;
+  final ordersModel = OrdersModel().obs;
 
   final updateCartController = TextEditingController();
+  final updateOrderController = TextEditingController();
 
   Rx<int> quantity = 0.obs;
+  RxBool isFavourite = false.obs;
 
   @override
   void onReady() {
     getAllProducts();
     getAllFavourites();
     getCartItems();
+    getAllOrders();
     super.onReady();
   }
 
@@ -163,26 +169,70 @@ class ProductsController extends GetxController{
     });
   }
 
-  Future<void> addFavourite({required int productID}) async{
+  Future<void> deleteOrder({required int orderID}) async{
+    await ProductsRepoImpl.instance.deleteOrder(orderID: orderID).then((response) {
+      showSnackBar("Order deleted successfully", AlertState.success);
+      getAllOrders();
+    }).catchError((error){
+      showSnackBar("An error occurred, please try again", AlertState.error);
+    });
+  }
+
+  Future<void> updateOrder({required int orderID}) async{
+    final int quantity = int.parse(updateOrderController.text);
+    await ProductsRepoImpl.instance.updateOrder(orderID: orderID, quantity: quantity).then((response) {
+      showSnackBar("Order updated successfully", AlertState.success);
+      getAllOrders();
+    }).catchError((error){
+      TLoggerHelper.error(error.toString());
+      showSnackBar("An error occurred, please try again", AlertState.error);
+    });
+  }
+
+  Future<void> getAllOrders() async{
+    THelperFunctions.updateApiStatus(target: getOrdersApiStatus, value: RequestState.loading);
+    await ProductsRepoImpl.instance.getAllOrder().then((response) {
+      ordersModel.value = response;
+      THelperFunctions.updateApiStatus(target: getOrdersApiStatus, value: RequestState.success);
+    }).catchError((error){
+      THelperFunctions.updateApiStatus(target: getOrdersApiStatus, value: RequestState.error);
+      showSnackBar("An error occurred, please try again", AlertState.error);
+    });
+  }
+
+  Future<void> addFavourite({required int productID}) async {
+    isFavourite.value = true;
+
     THelperFunctions.updateApiStatus(target: addFavouritesApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.addFavourite(productID: productID).then((response) {
       addFavouriteModel.value = response;
       THelperFunctions.updateApiStatus(target: addFavouritesApiStatus, value: RequestState.success);
-    }).catchError((error){
+      isFavourite.value = true;
+      showSnackBar("Product added to favourites successfully", AlertState.success);
+      getAllFavourites();
+    }).catchError((error) {
+      isFavourite.value = false;
+
       THelperFunctions.updateApiStatus(target: addFavouritesApiStatus, value: RequestState.error);
-      showSnackBar("An error occurred, please try again", AlertState.error);
+      showSnackBar("An error occurred while adding to favourites", AlertState.error);
     });
   }
 
-  Future<void> deleteFavourite({required int productID}) async{
+  Future<void> deleteFavourite({required int productID}) async {
+    isFavourite.value = false;
+
     THelperFunctions.updateApiStatus(target: deleteFavouritesApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.deleteFavourite(productID: productID).then((response) {
       deleteFavouriteModel.value = response;
       THelperFunctions.updateApiStatus(target: deleteFavouritesApiStatus, value: RequestState.success);
-    }).catchError((error){
+      isFavourite.value = false;
+      showSnackBar("Product removed from favourites successfully", AlertState.success);
+      getAllFavourites();
+    }).catchError((error) {
+      isFavourite.value = true;
+
       THelperFunctions.updateApiStatus(target: deleteFavouritesApiStatus, value: RequestState.error);
-      showSnackBar("An error occurred, please try again", AlertState.error);
+      showSnackBar("An error occurred while removing from favourites", AlertState.error);
     });
   }
-
 }

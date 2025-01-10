@@ -38,4 +38,10 @@ class TApiConstants {
 
   static const String apply = 'shoppings/apply';
 
+  static const String getAllOrders = 'orders';
+
+  static const String updateOrder = 'orders';
+
+  static const String deleteOrder = 'orders';
+
 }
