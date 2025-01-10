@@ -1,6 +1,5 @@
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:delivery_app/common/styles/shadows.dart';
 import 'package:delivery_app/common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -12,8 +11,8 @@ import 'package:delivery_app/common/widgets/texts/product_title_text.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 
-class ProductCardVertical extends StatelessWidget {
-  const ProductCardVertical({super.key, required this.name, required this.price, required this.image, required this.productID});
+class ProductCard extends StatelessWidget {
+  const ProductCard({super.key, required this.name, required this.price, required this.image, required this.productID});
 
   final String name;
   final int price;
@@ -42,7 +41,7 @@ class ProductCardVertical extends StatelessWidget {
               backgroundColor: dark ? TColors.dark : TColors.light,
               child: Stack(
                 children: [
-                  TRoundedImage(imageUrl: image, applyImageRadius: true),
+                  TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true),
                   Positioned(
                     top: 12,
                     child: TRoundedContainer(

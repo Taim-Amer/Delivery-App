@@ -2,6 +2,7 @@ import 'package:delivery_app/common/widgets/alerts/snackbar.dart';
 import 'package:delivery_app/features/authentication/repositories/auth_repo_impl.dart';
 import 'package:delivery_app/features/authentication/views/signin/login_screen.dart';
 import 'package:delivery_app/features/shop/views/products/products_screen.dart';
+import 'package:delivery_app/navigation_menu.dart';
 import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:delivery_app/utils/logging/logger.dart';
@@ -45,7 +46,7 @@ class AuthController extends GetxController{
       THelperFunctions.updateApiStatus(target: signinApiStatus, value: RequestState.success);
       showSnackBar(response.message!, AlertState.success);
       TCacheHelper.saveData(key: 'token', value: response.data!.accessToken);
-      Get.offAll(const ProductsScreen());
+      Get.offAll(const NavigationMenu());
     }).catchError((error){
       THelperFunctions.updateApiStatus(target: signinApiStatus, value: RequestState.error);
       showSnackBar("An error occurred, please try again", AlertState.error);

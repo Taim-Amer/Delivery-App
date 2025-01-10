@@ -5,6 +5,7 @@ import 'package:delivery_app/features/shop/models/store_products_model.dart';
 import 'package:delivery_app/features/shop/repositories/store/store_repo_impl.dart';
 import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
+import 'package:delivery_app/utils/logging/logger.dart';
 import 'package:get/get.dart';
 
 class StoreController extends GetxController{
@@ -47,13 +48,14 @@ class StoreController extends GetxController{
   }
 
   Future<void> getStoreProducts({required int storeID}) async{
-    THelperFunctions.updateApiStatus(target: getStoreDetailsApiStatus, value: RequestState.loading);
-    await StoreRepoImpl.instance.getStoreDetails(storeID: storeID).then((response){
-      storeDetailsModel.value = response;
-      THelperFunctions.updateApiStatus(target: getStoreDetailsApiStatus, value: RequestState.success);
+    THelperFunctions.updateApiStatus(target: getStoreProductsApiStatus, value: RequestState.loading);
+    await StoreRepoImpl.instance.getStoreProducts(storeID: storeID).then((response){
+      storeProductsModel.value = response;
+      THelperFunctions.updateApiStatus(target: getStoreProductsApiStatus, value: RequestState.success);
     }).catchError((error){
-      THelperFunctions.updateApiStatus(target: getStoreDetailsApiStatus, value: RequestState.error);
-      showSnackBar("An error occurred, please try again", AlertState.error);
+      TLoggerHelper.error(error.toString());
+      THelperFunctions.updateApiStatus(target: getStoreProductsApiStatus, value: RequestState.error);
+      // showSnackBar("An error occurred, please try again", AlertState.error);
     });
   }
 }

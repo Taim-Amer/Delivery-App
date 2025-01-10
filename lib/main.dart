@@ -1,3 +1,4 @@
+import 'package:delivery_app/features/authentication/views/signin/login_screen.dart';
 import 'package:delivery_app/features/authentication/views/signup/register_screen.dart';
 import 'package:delivery_app/navigation_menu.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
@@ -28,7 +29,7 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: TAppTheme.lightTheme,
         darkTheme: TAppTheme.darkTheme,
-        home: const NavigationMenu(),
+        home: const SigninScreen(),
       ),
     );
   }

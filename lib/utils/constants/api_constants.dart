@@ -1,6 +1,6 @@
 class TApiConstants {
 
-  static const String baseUrl = 'http://192.168.43.158:8000/api/';
+  static const String baseUrl = 'http://192.168.53.1:8000/api/';
 
   static const String register = 'register';
 
@@ -16,7 +16,7 @@ class TApiConstants {
 
   static const String getStoreDetails = 'stores';
 
-  static const String getStoreProducts = 'get_products';
+  static const String getStoreProducts = 'stores';
 
   static const String getProducts = 'products';
 

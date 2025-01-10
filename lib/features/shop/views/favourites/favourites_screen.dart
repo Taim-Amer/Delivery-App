@@ -16,7 +16,7 @@ class FavouritesScreen extends StatelessWidget {
         child: TGridLayout(
           itemCount: 20,
           physics: const BouncingScrollPhysics(),
-          itemBuilder: (_, index) => const ProductCardVertical(),
+          itemBuilder: (_, index) => SizedBox(),
           mainAxisExtent: 288,
         ),
       ),

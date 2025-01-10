@@ -31,7 +31,7 @@ class StoreRepoImpl implements StoreRepo{
   Future<StoreProductsModel> getStoreProducts({required int storeID}) async{
     final dioHelper = TDioHelper();
     return await dioHelper.get(
-      "${TApiConstants.getStoreProducts}/$storeID",
+      "${TApiConstants.getStoreProducts}/get_products/$storeID",
       token: token,
     ).then((response) => StoreProductsModel.fromJson(response));
   }
