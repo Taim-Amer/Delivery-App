@@ -1,5 +1,6 @@
 import 'package:delivery_app/features/authentication/views/signin/login_screen.dart';
 import 'package:delivery_app/features/authentication/views/signup/register_screen.dart';
+import 'package:delivery_app/features/personal/controllers/settings_controller.dart';
 import 'package:delivery_app/navigation_menu.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:delivery_app/utils/storage/cache_helper.dart';
@@ -21,16 +22,17 @@ class App extends StatelessWidget {
   const App({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put<SettingsController>(SettingsController());
     print(TCacheHelper.getData(key: 'token'));
     return ScreenUtilInit(
       designSize: Size(THelperFunctions.screenWidth(context), THelperFunctions.screenHeight(context)),
-      builder: (_, child) =>  GetMaterialApp(
+      builder: (_, child) =>  Obx(() => GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
+        themeMode: SettingsController.instance.themeMode.value,
         theme: TAppTheme.lightTheme,
         darkTheme: TAppTheme.darkTheme,
         home: const NavigationMenu(),
-      ),
+      )),
     );
   }
 }

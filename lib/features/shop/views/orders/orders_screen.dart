@@ -1,4 +1,5 @@
 import 'package:delivery_app/common/widgets/appbar/appbar.dart';
+import 'package:delivery_app/features/personal/widgets/theme_icon.dart';
 import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/cart/widgets/cart_menu_icon.dart';
@@ -25,7 +26,12 @@ class OrdersScreen extends StatelessWidget {
           await ProductsController.instance.getAllOrders();
         },
         child: Scaffold(
-          appBar: TAppBar(actions: [CartCounterIcon(onPressed: (){})]),
+          appBar: TAppBar(actions: [Row(
+            children: [
+              const ThemeIcon(),
+              CartCounterIcon(onPressed: (){}),
+            ],
+          )]),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
             child: ListView.separated(

@@ -1,4 +1,5 @@
 import 'package:delivery_app/common/widgets/appbar/appbar.dart';
+import 'package:delivery_app/features/personal/widgets/theme_icon.dart';
 import 'package:delivery_app/features/shop/controllers/store_controller.dart';
 import 'package:delivery_app/features/shop/repositories/store/store_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/cart/widgets/cart_menu_icon.dart';
@@ -27,7 +28,12 @@ class StoreScreen extends StatelessWidget {
         await StoreController.instance.getAllStores();
       },
       child: Obx(() => StoreController.instance.getStoresApiStatus.value == RequestState.loading ? const StoresShimmer() : Scaffold(
-        appBar: TAppBar(actions: [CartCounterIcon(onPressed: (){})],),
+        appBar: TAppBar(actions: [Row(
+          children: [
+            const ThemeIcon(),
+            CartCounterIcon(onPressed: (){}),
+          ],
+        )],),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
           child: ListView.separated(
