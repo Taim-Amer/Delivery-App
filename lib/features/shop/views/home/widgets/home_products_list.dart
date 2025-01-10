@@ -1,6 +1,6 @@
 import 'package:delivery_app/common/widgets/layouts/grid_layout.dart';
 import 'package:delivery_app/features/shop/controllers/products_controller.dart';
-import 'package:delivery_app/features/shop/views/products/widgets/product_card_vertical.dart';
+import 'package:delivery_app/features/shop/views/products/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeProductsGrid extends StatelessWidget {

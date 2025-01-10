@@ -3,8 +3,10 @@ import 'package:delivery_app/common/widgets/layouts/grid_layout.dart';
 import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/cart/widgets/cart_menu_icon.dart';
-import 'package:delivery_app/features/shop/views/products/widgets/product_card_vertical.dart';
+import 'package:delivery_app/features/shop/views/favourites/widgets/favourites_shimmer.dart';
+import 'package:delivery_app/features/shop/views/products/widgets/product_card.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
+import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +27,13 @@ class FavouritesScreen extends StatelessWidget {
       onRefresh: () async{
         await ProductsController.instance.getAllFavourites();
       },
-      child: Scaffold(
+      child: Obx(() => ProductsController.instance.getFavouritesApiStatus.value == RequestState.loading ? const FavouritesShimmer() : Scaffold(
         appBar: TAppBar(actions: [CartCounterIcon(onPressed: (){})],),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
           child: TGridLayout(
             itemCount: productList?.length ?? 0,
-            physics: const BouncingScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (_, index) => ProductCard(
               name: productList?[index].name ?? '',
               price: productList?[index].price ?? 0,
@@ -44,7 +46,7 @@ class FavouritesScreen extends StatelessWidget {
             mainAxisExtent: 288,
           ),
         ),
-      ),
+      )),
     );
   }
 }

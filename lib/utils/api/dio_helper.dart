@@ -16,7 +16,7 @@ class TDioHelper {
       BaseOptions(
         baseUrl: TApiConstants.baseUrl,
         receiveDataWhenStatusError: true,
-        followRedirects: true,
+        // followRedirects: true,
       ),
     );
     dio.interceptors.add(PrettyDioLogger(requestBody: true, error: true, requestHeader: true));

@@ -3,7 +3,9 @@ import 'package:delivery_app/features/shop/controllers/store_controller.dart';
 import 'package:delivery_app/features/shop/repositories/store/store_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/cart/widgets/cart_menu_icon.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/store_card.dart';
+import 'package:delivery_app/features/shop/views/stores/widgets/stores_shimmer.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
+import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -24,22 +26,22 @@ class StoreScreen extends StatelessWidget {
       onRefresh: () async{
         await StoreController.instance.getAllStores();
       },
-      child: Scaffold(
-      appBar: TAppBar(actions: [CartCounterIcon(onPressed: (){})],),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-        child: ListView.separated(
-          itemBuilder: (context, index) => StoreCard(
-            name: storesList?[index].name ?? "",
-            location: storesList?[index].location ?? "",
-            image: storesList?[index].imageStore ?? "",
-            represents: storesList?[index].represents ?? "",
-            storeID: storesList?[index].id ?? 0,
+      child: Obx(() => StoreController.instance.getStoresApiStatus.value == RequestState.loading ? const StoresShimmer() : Scaffold(
+        appBar: TAppBar(actions: [CartCounterIcon(onPressed: (){})],),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+          child: ListView.separated(
+            itemBuilder: (context, index) => StoreCard(
+              name: storesList?[index].name ?? "",
+              location: storesList?[index].location ?? "",
+              image: storesList?[index].imageStore ?? "",
+              represents: storesList?[index].represents ?? "",
+              storeID: storesList?[index].id ?? 0,
+            ),
+            separatorBuilder: (_, index) => const SizedBox(height: TSizes.spaceBtwItems),
+            itemCount: storesList?.length ?? 0,
           ),
-          separatorBuilder: (_, index) => const SizedBox(height: TSizes.spaceBtwItems),
-          itemCount: storesList?.length ?? 0,
         ),
-      ),
-    ));
+      )));
   }
 }

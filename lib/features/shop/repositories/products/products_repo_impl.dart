@@ -12,7 +12,9 @@ import 'package:delivery_app/features/shop/models/update_cart_model.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo.dart';
 import 'package:delivery_app/utils/api/dio_helper.dart';
 import 'package:delivery_app/utils/constants/api_constants.dart';
+import 'package:delivery_app/utils/logging/logger.dart';
 import 'package:delivery_app/utils/storage/cache_helper.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class ProductsRepoImpl implements ProductsRepo{
@@ -43,6 +45,7 @@ class ProductsRepoImpl implements ProductsRepo{
       {
         'product_id' : productID
       },
+      token: token,
     ).then((response) => AddFavouriteModel.fromJson(response));
   }
 
@@ -78,14 +81,22 @@ class ProductsRepoImpl implements ProductsRepo{
   }
 
   @override
-  Future<DeleteFavouriteModel> deleteFavourite({required int productID}) async{
-    final dioHelper = TDioHelper();
-    return await dioHelper.post(
-      "${TApiConstants.deleteFavourite}/$productID",
-      token: token,
-      {},
-    ).then((response) => DeleteFavouriteModel.fromJson(response));
+  Future<DeleteFavouriteModel> deleteFavourite({required int productID}) async {
+    try {
+      final dioHelper = TDioHelper();
+      final response = await dioHelper.delete(
+        "${TApiConstants.deleteFavourite}/$productID",
+        token: token,
+      );
+
+      return DeleteFavouriteModel.fromJson(response);
+    } on DioException catch (dioError) {
+      TLoggerHelper.error("DioError occurred: ${dioError.response?.data}");
+      throw Exception("Failed to delete favourite");
+    }
   }
+
+
 
   @override
   Future<FavouriteModel> getAllFavourites() async{
@@ -132,5 +143,4 @@ class ProductsRepoImpl implements ProductsRepo{
     final dioHelper = TDioHelper();
     await dioHelper.put("${TApiConstants.updateOrder}/$orderID", token: token, {'quantity' : quantity});
   }
-
 }

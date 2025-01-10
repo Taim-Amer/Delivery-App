@@ -3,6 +3,7 @@ import 'package:delivery_app/features/shop/controllers/store_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/repositories/store/store_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/home_products_list.dart';
+import 'package:delivery_app/features/shop/views/home/widgets/home_shimmer.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/home_stores_list.dart';
 import 'package:delivery_app/common/widgets/texts/section_heading.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/home_appbar.dart';
@@ -10,6 +11,7 @@ import 'package:delivery_app/features/shop/views/home/widgets/primary_header_con
 import 'package:delivery_app/features/shop/views/products/products_screen.dart';
 import 'package:delivery_app/features/shop/views/stores/store_screen.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
+import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +52,10 @@ class HomeScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(TSizes.defaultSpace),
-                child: Column(
+                child: Obx(() => ProductsController.instance.getProductsApiStatus.value == RequestState.loading
+                    || StoreController.instance.getStoresApiStatus.value == RequestState.loading
+                    ? const HomeShimmer()
+                    : Column(
                   children: [
                     SectionHeading(title: "Stores", onPressed: () => Get.to(const StoreScreen())),
                     const HomeStoresList(),
@@ -58,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                     SectionHeading(title: "Products", onPressed: () => Get.to(const ProductsScreen())),
                     const HomeProductsGrid()
                   ],
-                ),
+                )),
               ),
             ],
           ),

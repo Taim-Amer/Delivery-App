@@ -20,7 +20,7 @@ class AddFavouriteModel {
 }
 
 class Data {
-  String? productId;
+  int? productId;
 
   Data({this.productId});
 

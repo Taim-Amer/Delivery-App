@@ -49,7 +49,7 @@ class ProductsController extends GetxController{
   final updateOrderController = TextEditingController();
 
   Rx<int> quantity = 0.obs;
-  RxBool isFavourite = false.obs;
+  // RxBool isFavourite = false.obs;
 
   @override
   void onReady() {
@@ -128,7 +128,7 @@ class ProductsController extends GetxController{
       Get.offAll(() => const NavigationMenu());
     }).catchError((error){
       THelperFunctions.updateApiStatus(target: applyApiStatus, value: RequestState.error);
-      showSnackBar("An error occurred, please try again", AlertState.error);
+      showSnackBar("You can't get this quantity of product 'impedit'", AlertState.warning);
     });
   }
 
@@ -139,6 +139,7 @@ class ProductsController extends GetxController{
       updateModel.value = response;
       THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.success);
     }).catchError((error){
+      TLoggerHelper.error(error.toString());
       THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.error);
       showSnackBar("An error occurred, please try again", AlertState.error);
     });
@@ -201,36 +202,39 @@ class ProductsController extends GetxController{
   }
 
   Future<void> addFavourite({required int productID}) async {
-    isFavourite.value = true;
+    // isFavourite.value = true;
 
     THelperFunctions.updateApiStatus(target: addFavouritesApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.addFavourite(productID: productID).then((response) {
       addFavouriteModel.value = response;
       THelperFunctions.updateApiStatus(target: addFavouritesApiStatus, value: RequestState.success);
-      isFavourite.value = true;
+      // isFavourite.value = true;
       showSnackBar("Product added to favourites successfully", AlertState.success);
       getAllFavourites();
     }).catchError((error) {
-      isFavourite.value = false;
-
+      // isFavourite.value = false;
+      TLoggerHelper.error(error.toString());
+      TLoggerHelper.error(productID.toString());
       THelperFunctions.updateApiStatus(target: addFavouritesApiStatus, value: RequestState.error);
-      showSnackBar("An error occurred while adding to favourites", AlertState.error);
+      showSnackBar("product already exists", AlertState.warning);
     });
   }
 
   Future<void> deleteFavourite({required int productID}) async {
-    isFavourite.value = false;
+    // isFavourite.value = false;
 
     THelperFunctions.updateApiStatus(target: deleteFavouritesApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.deleteFavourite(productID: productID).then((response) {
       deleteFavouriteModel.value = response;
       THelperFunctions.updateApiStatus(target: deleteFavouritesApiStatus, value: RequestState.success);
-      isFavourite.value = false;
+      // isFavourite.value = false;
       showSnackBar("Product removed from favourites successfully", AlertState.success);
       getAllFavourites();
     }).catchError((error) {
-      isFavourite.value = true;
+      // isFavourite.value = true;
+      TLoggerHelper.error(error.toString());
 
+      TLoggerHelper.error(productID.toString());
       THelperFunctions.updateApiStatus(target: deleteFavouritesApiStatus, value: RequestState.error);
       showSnackBar("An error occurred while removing from favourites", AlertState.error);
     });

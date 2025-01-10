@@ -28,7 +28,7 @@ Color chooseSnackBarColor(AlertState state) {
       color = TColors.redColor;
       break;
     case AlertState.warning:
-      color = TColors.yellowColor;
+      color = Colors.blueAccent;
       break;
   }
   return color;

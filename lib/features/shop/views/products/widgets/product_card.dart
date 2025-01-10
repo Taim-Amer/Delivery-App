@@ -56,28 +56,17 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Obx(() => TCircularIcon(
-                    icon: ProductsController.instance.isFavourite.value
-                        ? Iconsax.heart5
-                        : Iconsax.heart,
-                    color: ProductsController.instance.isFavourite.value
-                        ? Colors.red
-                        : Colors.grey,
+                    bottom: 0,
+                    right: 0,
+                  child: TCircularIcon(
+                    icon: Iconsax.heart5,
+                    color: Colors.red,
                     width: 40,
                     height: 40,
                     backgroundColor: dark ? TColors.darkerGrey : TColors.light,
-                    onPressed: () {
-                      if (ProductsController.instance.isFavourite.value) {
-                        ProductsController.instance.deleteFavourite(productID: productID);
-                      } else {
-                        ProductsController.instance.addFavourite(productID: productID);
-                      }
-                    },
-                  )),
+                    onPressed: () => ProductsController.instance.addFavourite(productID: productID),
+                  ),
                 ),
-
               ],
             ),
           ),
