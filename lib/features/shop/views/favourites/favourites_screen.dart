@@ -2,6 +2,7 @@ import 'package:delivery_app/common/widgets/appbar/appbar.dart';
 import 'package:delivery_app/common/widgets/layouts/grid_layout.dart';
 import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
+import 'package:delivery_app/features/shop/views/cart/widgets/cart_menu_icon.dart';
 import 'package:delivery_app/features/shop/views/products/widgets/product_card_vertical.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
@@ -25,11 +26,11 @@ class FavouritesScreen extends StatelessWidget {
         await ProductsController.instance.getAllFavourites();
       },
       child: Scaffold(
-        appBar: const TAppBar(title: BackButtonIcon()),
+        appBar: TAppBar(actions: [CartCounterIcon(onPressed: (){})],),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
           child: TGridLayout(
-            itemCount: 20,
+            itemCount: productList?.length ?? 0,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (_, index) => ProductCard(
               name: productList?[index].name ?? '',

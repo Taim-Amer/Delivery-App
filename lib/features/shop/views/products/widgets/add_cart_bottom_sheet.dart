@@ -1,8 +1,10 @@
 import 'package:delivery_app/common/widgets/icons/circular_icon.dart';
+import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AddCartBottomSheet extends StatelessWidget {
@@ -25,21 +27,36 @@ class AddCartBottomSheet extends StatelessWidget {
         children: [
           Row(
             children: [
-              const TCircularIcon(icon: Iconsax.minus, backgroundColor: TColors.darkGrey, width: 40, height: 40, color: TColors.white),
+              TCircularIcon(
+                icon: Iconsax.minus,
+                backgroundColor: TColors.darkGrey,
+                width: 40,
+                height: 40,
+                color: TColors.white,
+                onPressed: () => ProductsController.instance.decreaseQuantity(),
+              ),
               const SizedBox(width: TSizes.spaceBtwItems),
-              Text("2", style: Theme.of(context).textTheme.titleSmall,),
+              Obx(() => Text(ProductsController.instance.quantity.value.toString(), style: Theme.of(context).textTheme.titleSmall,)),
               const SizedBox(width: TSizes.spaceBtwItems),
-              const TCircularIcon(icon: Iconsax.add, backgroundColor: TColors.black, width: 40, height: 40, color: TColors.white),
+              TCircularIcon(
+                icon: Iconsax.add,
+                backgroundColor: TColors.black,
+                width: 40,
+                height: 40,
+                color: TColors.white,
+                onPressed: () => ProductsController.instance.increaseQuantity(),
+              ),
             ],
           ),
           ElevatedButton(
-              onPressed: (){},
-              style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(TSizes.md),
-                  backgroundColor: TColors.black,
-                  side: const BorderSide(color: TColors.black)
-              ),
-              child: const Text("Add to Cart"))
+            onPressed: (){},
+            style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(TSizes.md),
+                backgroundColor: TColors.black,
+                side: const BorderSide(color: TColors.black),
+            ),
+            child: const Text("Add to Cart"),
+          )
         ],
       ),
     );

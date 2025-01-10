@@ -39,11 +39,26 @@ class ProductsController extends GetxController{
   final addFavouriteModel = AddFavouriteModel().obs;
   final deleteFavouriteModel = DeleteFavouriteModel().obs;
 
+  Rx<int> quantity = 0.obs;
+
   @override
   void onReady() {
     getAllProducts();
+    getAllFavourites();
+    getCartItems();
     super.onReady();
   }
+
+  void increaseQuantity() {
+    quantity.value = quantity.value + 1;
+  }
+
+  void decreaseQuantity() {
+    if (quantity.value > 0) {
+      quantity.value = quantity.value - 1;
+    }
+  }
+
 
   Future<void> getAllProducts() async{
     THelperFunctions.updateApiStatus(target: getProductsApiStatus, value: RequestState.loading);

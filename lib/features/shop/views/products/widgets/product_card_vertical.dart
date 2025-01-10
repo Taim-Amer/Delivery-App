@@ -72,9 +72,9 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TProductTitleText(title: name, smallSize: true),
+                    TProductTitleText(title: name, smallSize: false),
                     const SizedBox(height: TSizes.spaceBtwItems / 2),
-                    TBrandTitleWithVerifiedIcon(title: name,),
+                    TBrandTitleWithVerifiedIcon(title: expiryDate,),
                   ],
                 ),
               ),
