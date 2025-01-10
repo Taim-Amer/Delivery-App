@@ -1,5 +1,7 @@
+import 'package:delivery_app/features/shop/views/products/product_details_screen.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:delivery_app/common/styles/shadows.dart';
 import 'package:delivery_app/common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -24,7 +26,7 @@ class ProductCard extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      // onTap: () => Get.to(() => const ProductDetailsScreen()),
+      onTap: () => Get.to(() => const ProductDetailsScreen()),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
