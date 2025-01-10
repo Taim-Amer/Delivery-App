@@ -42,10 +42,8 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     THomeAppBar(),
                     SizedBox(height: TSizes.spaceBtwSections,),
-                    Padding(
-                      padding: EdgeInsets.only(left: TSizes.defaultSpace),
-                      child: SectionHeading(title: "Popular Categories", showActionButton: false, textColor: TColors.white),
-                    ),
+                    SizedBox(height: TSizes.spaceBtwSections,),
+                    SizedBox(height: TSizes.spaceBtwSections,),
                     SizedBox(height: TSizes.spaceBtwSections),
                   ],
                 ),

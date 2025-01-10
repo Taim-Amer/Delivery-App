@@ -19,9 +19,9 @@ Future<void> main() async{
 
 class App extends StatelessWidget {
   const App({super.key});
-
   @override
   Widget build(BuildContext context) {
+    print(TCacheHelper.getData(key: 'token'));
     return ScreenUtilInit(
       designSize: Size(THelperFunctions.screenWidth(context), THelperFunctions.screenHeight(context)),
       builder: (_, child) =>  GetMaterialApp(

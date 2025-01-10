@@ -1,6 +1,6 @@
 import 'package:delivery_app/features/shop/views/favourites/favourites_screen.dart';
 import 'package:delivery_app/features/shop/views/home/home_screen.dart';
-import 'package:delivery_app/features/shop/views/products/products_screen.dart';
+import 'package:delivery_app/features/shop/views/orders/orders_screen.dart';
 import 'package:delivery_app/features/shop/views/stores/store_screen.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
@@ -28,7 +28,7 @@ class NavigationMenu extends StatelessWidget {
           NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
           NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
           NavigationDestination(icon: Icon(Iconsax.heart), label: "Wishlist"),
-          NavigationDestination(icon: Icon(Iconsax.money), label: "Orders"),
+          NavigationDestination(icon: Icon(Iconsax.verify), label: "Orders"),
         ],
       )),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
@@ -43,6 +43,6 @@ class NavigationController extends GetxController{
     const HomeScreen(),
     const StoreScreen(),
     const FavouritesScreen(),
-    const ProductsScreen(),
+    const OrdersScreen(),
   ];
 }

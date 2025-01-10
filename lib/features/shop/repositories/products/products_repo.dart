@@ -16,7 +16,7 @@ abstract class ProductsRepo{
   Future<AddToCartModel> addToCart({required int productID, required int quantity});
   Future<GetCartItemsModel> getCartItems();
   Future<ApplyModel> apply();
-  Future<UpdateCartModel> update({required int productID});
+  Future<UpdateCartModel> update({required int productID, required int quantity});
   Future<DeleteCartModel> delete({required int productID});
 
   Future<FavouriteModel> getAllFavourites();

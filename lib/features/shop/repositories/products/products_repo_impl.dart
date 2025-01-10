@@ -105,11 +105,11 @@ class ProductsRepoImpl implements ProductsRepo{
   }
 
   @override
-  Future<UpdateCartModel> update({required int productID}) async{
+  Future<UpdateCartModel> update({required int productID, required int quantity}) async{
     final dioHelper = TDioHelper();
     return await dioHelper.put(
       "${TApiConstants.updateCart}/$productID",
-      {},
+      {'quantity' : quantity},
       token: token,
     ).then((response) => UpdateCartModel.fromJson(response));
   }

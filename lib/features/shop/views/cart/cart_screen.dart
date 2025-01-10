@@ -26,7 +26,13 @@ class CartScreen extends StatelessWidget {
           await ProductsController.instance.getCartItems();
         },
         child: Scaffold(
-          appBar: const TAppBar(showBackArrow: true),
+        appBar: TAppBar(
+          showBackArrow: true,
+          actions: [
+            TextButton(
+              onPressed: () => ProductsController.instance.apply(),
+              child: const Text("Apply"),
+            )],),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
             child: ListView.separated(

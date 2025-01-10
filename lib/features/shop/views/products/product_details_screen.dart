@@ -30,7 +30,7 @@ class ProductDetailsScreen extends StatelessWidget {
         await ProductsController.instance.getProductsDetails(productID: productID);
       },
       child: Scaffold(
-        bottomNavigationBar: const AddCartBottomSheet(),
+        bottomNavigationBar: AddCartBottomSheet(productID: productID),
         body: SingleChildScrollView(
           child: Column(
             children: [

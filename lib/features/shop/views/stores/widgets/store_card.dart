@@ -33,7 +33,7 @@ class StoreCard extends StatelessWidget {
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(TSizes.productImageRadius),
-            color: dark ? TColors.darkerGrey : TColors.softGrey
+            color: dark ? TColors.dark : TColors.softGrey
         ),
         child: Row(
           children: [

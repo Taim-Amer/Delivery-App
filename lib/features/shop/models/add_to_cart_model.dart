@@ -26,8 +26,8 @@ class Data {
   Data({this.productId, this.quantity});
 
   Data.fromJson(Map<String, dynamic> json) {
-    productId = json['product_id'];
-    quantity = json['quantity'];
+    productId = json['product_id'].toString();
+    quantity = json['quantity'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -37,3 +37,4 @@ class Data {
     return data;
   }
 }
+

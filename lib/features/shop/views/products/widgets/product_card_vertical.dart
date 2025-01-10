@@ -1,3 +1,4 @@
+import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/views/products/product_details_screen.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -27,70 +28,76 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    return GestureDetector(
-      onTap: () => Get.to(() => ProductDetailsScreen(productID: productID, name: name, price: price, availableQuantity: availableQuantity, imageProduct: image, productionDate: productionDate, expiryDate: expiryDate)),
-      child: Container(
-        width: 180,
-        padding: const EdgeInsets.all(1),
-        decoration: BoxDecoration(
-          boxShadow: [TShadowStyle.verticalProductShadow],
-          borderRadius: BorderRadius.circular(TSizes.productImageRadius),
-          color: dark ? TColors.darkerGrey : TColors.white
-        ),
-        child: Column(
-          children: [
-            TRoundedContainer(
-              height: 180,
+    return Container(
+      width: 180,
+      padding: const EdgeInsets.all(1),
+      decoration: BoxDecoration(
+        boxShadow: [TShadowStyle.verticalProductShadow],
+        borderRadius: BorderRadius.circular(TSizes.productImageRadius),
+        color: dark ? TColors.dark : TColors.white
+      ),
+      child: Column(
+        children: [
+          TRoundedContainer(
+            height: 180,
+            width: double.infinity,
+            padding: const EdgeInsets.all(TSizes.sm),
+            backgroundColor: dark ? TColors.dark : TColors.light,
+            child: Stack(
+              children: [
+                TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true, onPressed: () => Get.to(() => ProductDetailsScreen(productID: productID, name: name, price: price, availableQuantity: availableQuantity, imageProduct: image, productionDate: productionDate, expiryDate: expiryDate))),
+                Positioned(
+                  bottom: 12,
+                  child: TRoundedContainer(
+                    radius: TSizes.sm,
+                    backgroundColor: TColors.secondary.withOpacity(.8),
+                    padding: const EdgeInsets.symmetric(horizontal: TSizes.sm, vertical: TSizes.xs),
+                    child: Text("25%", style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.black),),
+                  ),
+                ),
+                Positioned(
+                    bottom: 0,
+                    right: 0,
+                  child: TCircularIcon(
+                    icon: Iconsax.heart5,
+                    color: Colors.red,
+                    width: 40,
+                    height: 40,
+                    backgroundColor: dark ? TColors.darkerGrey : TColors.light,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: TSizes.spaceBtwItems / 2),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
+            child: SizedBox(
               width: double.infinity,
-              padding: const EdgeInsets.all(TSizes.sm),
-              backgroundColor: dark ? TColors.dark : TColors.light,
-              child: Stack(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true),
-                  Positioned(
-                    bottom: 12,
-                    child: TRoundedContainer(
-                      radius: TSizes.sm,
-                      backgroundColor: TColors.secondary.withOpacity(.8),
-                      padding: const EdgeInsets.symmetric(horizontal: TSizes.sm, vertical: TSizes.xs),
-                      child: Text("25%", style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.black),),
-                    ),
-                  ),
-                  const Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: TCircularIcon(icon: Iconsax.heart5, color: Colors.red, width: 40, height: 40),
-                  ),
+                  TProductTitleText(title: name, smallSize: false),
+                  const SizedBox(height: TSizes.spaceBtwItems / 2),
+                  TBrandTitleWithVerifiedIcon(title: expiryDate,),
                 ],
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwItems / 2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: TSizes.sm),
-              child: SizedBox(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TProductTitleText(title: name, smallSize: false),
-                    const SizedBox(height: TSizes.spaceBtwItems / 2),
-                    TBrandTitleWithVerifiedIcon(title: expiryDate,),
-                  ],
-                ),
+          ),
+          const Spacer(),
+          Row (
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: TSizes.sm),
+                child: TProductPriceText(price: price.toString()),
               ),
-            ),
-            const Spacer(),
-            Row (
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: TSizes.sm),
-                  child: TProductPriceText(price: price.toString()),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                      color: TColors.dark,
-                      borderRadius: BorderRadius.only(
+              GestureDetector(
+                onTap: () => ProductsController.instance.addToCart(productID: productID),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: dark ? TColors.darkerGrey : TColors.dark,
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(TSizes.cardRadiusMd),
                           bottomRight: Radius.circular(TSizes.productImageRadius)
                       )
@@ -99,11 +106,11 @@ class ProductCard extends StatelessWidget {
                       width: TSizes.iconLg * 1.2,
                       height: TSizes.iconLg * 1.2,
                       child: Center(child: Icon(Iconsax.add, color: TColors.white,))),
-                )
-              ],
-            ),
-          ],
-        ),
+                ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

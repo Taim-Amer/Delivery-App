@@ -8,7 +8,9 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AddCartBottomSheet extends StatelessWidget {
-  const AddCartBottomSheet({super.key});
+  const AddCartBottomSheet({super.key, required this.productID});
+
+  final int productID;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class AddCartBottomSheet extends StatelessWidget {
             ],
           ),
           ElevatedButton(
-            onPressed: (){},
+            onPressed: () => ProductsController.instance.addToCart(productID: productID),
             style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(TSizes.md),
                 backgroundColor: TColors.black,

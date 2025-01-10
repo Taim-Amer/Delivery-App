@@ -10,8 +10,11 @@ import 'package:delivery_app/features/shop/models/product_details_model.dart';
 import 'package:delivery_app/features/shop/models/product_model.dart';
 import 'package:delivery_app/features/shop/models/update_cart_model.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
+import 'package:delivery_app/navigation_menu.dart';
 import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
+import 'package:delivery_app/utils/logging/logger.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ProductsController extends GetxController{
@@ -38,6 +41,8 @@ class ProductsController extends GetxController{
   final favouritesModel = FavouriteModel().obs;
   final addFavouriteModel = AddFavouriteModel().obs;
   final deleteFavouriteModel = DeleteFavouriteModel().obs;
+
+  final updateCartController = TextEditingController();
 
   Rx<int> quantity = 0.obs;
 
@@ -82,14 +87,17 @@ class ProductsController extends GetxController{
     });
   }
 
-  Future<void> addToCart({required int productID, required int quantity}) async{
+  Future<void> addToCart({required int productID}) async{
     THelperFunctions.updateApiStatus(target: addToCartApiStatus, value: RequestState.loading);
-    await ProductsRepoImpl.instance.addToCart(productID: productID, quantity: quantity).then((response) {
+    await ProductsRepoImpl.instance.addToCart(productID: productID, quantity: quantity.value).then((response) {
       addToCartModel.value = response;
+      showSnackBar(addToCartModel.value.message ?? '', AlertState.success);
       THelperFunctions.updateApiStatus(target: addToCartApiStatus, value: RequestState.success);
+      getCartItems();
     }).catchError((error){
+      TLoggerHelper.error(error.toString());
       THelperFunctions.updateApiStatus(target: addToCartApiStatus, value: RequestState.error);
-      showSnackBar("An error occurred, please try again", AlertState.error);
+      showSnackBar("Product already exists, try to update it", AlertState.warning);
     });
   }
 
@@ -109,7 +117,9 @@ class ProductsController extends GetxController{
     THelperFunctions.updateApiStatus(target: applyApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.apply().then((response) {
       applyModel.value = response;
+      showSnackBar(applyModel.value.message ?? '', AlertState.success);
       THelperFunctions.updateApiStatus(target: applyApiStatus, value: RequestState.success);
+      Get.offAll(() => const NavigationMenu());
     }).catchError((error){
       THelperFunctions.updateApiStatus(target: applyApiStatus, value: RequestState.error);
       showSnackBar("An error occurred, please try again", AlertState.error);
@@ -117,8 +127,9 @@ class ProductsController extends GetxController{
   }
 
   Future<void> updateCart({required int productID}) async{
+    final int quantity = int.parse(updateCartController.text);
     THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.loading);
-    await ProductsRepoImpl.instance.update(productID: productID).then((response) {
+    await ProductsRepoImpl.instance.update(productID: productID, quantity: quantity).then((response) {
       updateModel.value = response;
       THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.success);
     }).catchError((error){
@@ -132,7 +143,10 @@ class ProductsController extends GetxController{
     await ProductsRepoImpl.instance.delete(productID: productID).then((response) {
       deleteModel.value = response;
       THelperFunctions.updateApiStatus(target: deleteApiStatus, value: RequestState.success);
+      showSnackBar(deleteModel.value.message ?? '', AlertState.success);
+      Get.offAll(() => const NavigationMenu());
     }).catchError((error){
+      TLoggerHelper.warning(error.toString());
       THelperFunctions.updateApiStatus(target: deleteApiStatus, value: RequestState.error);
       showSnackBar("An error occurred, please try again", AlertState.error);
     });
