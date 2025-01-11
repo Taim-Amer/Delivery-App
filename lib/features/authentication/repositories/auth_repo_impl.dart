@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:delivery_app/utils/api/http_client.dart';
 import 'package:get/get.dart';
 import 'package:delivery_app/features/authentication/models/signin_model.dart';
 import 'package:delivery_app/features/authentication/models/signup_model.dart';

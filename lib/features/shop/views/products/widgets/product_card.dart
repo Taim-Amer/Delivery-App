@@ -15,7 +15,7 @@ import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.name, required this.price, required this.image, required this.productID, required this.availableQuantity, required this.productionDate, required this.expiryDate});
+  const ProductCard({super.key, required this.name, required this.price, required this.image, required this.productID, required this.availableQuantity, required this.productionDate, required this.expiryDate, required this.favourite});
 
   final String name;
   final int price;
@@ -24,6 +24,7 @@ class ProductCard extends StatelessWidget {
   final int availableQuantity;
   final String productionDate;
   final String expiryDate;
+  final bool favourite;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class ProductCard extends StatelessWidget {
                     width: 40,
                     height: 40,
                     backgroundColor: dark ? TColors.darkerGrey : TColors.light,
-                    onPressed: () => ProductsController.instance.addFavourite(productID: productID),
+                    onPressed: () => favourite ? ProductsController.instance.deleteFavourite(productID: productID) : ProductsController.instance.addFavourite(productID: productID),
                   ),
                 ),
               ],

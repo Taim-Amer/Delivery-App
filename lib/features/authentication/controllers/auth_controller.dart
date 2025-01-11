@@ -66,7 +66,7 @@ class AuthController extends GetxController{
         lastName: registerLastNameController.text.toString(),
         phoneNumber: registerPhoneController.text.toString().trim(),
         password: registerPasswordController.text.toString(),
-        location: 'taim').then((response){
+        location: 'jskhkfjh9302809').then((response){
       THelperFunctions.updateApiStatus(target: signupApiStatus, value: RequestState.success);
       showSnackBar(response.message!, AlertState.success);
       Get.offAll(const SigninScreen());

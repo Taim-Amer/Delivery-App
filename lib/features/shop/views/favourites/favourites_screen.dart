@@ -12,6 +12,7 @@ import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 class FavouritesScreen extends StatelessWidget {
   const FavouritesScreen({super.key});
@@ -48,6 +49,7 @@ class FavouritesScreen extends StatelessWidget {
               availableQuantity: productList?[index].availableQuantity ?? 0,
               productionDate: productList?[index].productionDate ?? '',
               expiryDate: productList?[index].expiryDate ?? '',
+              favourite: true,
             ),
             mainAxisExtent: 288,
           ),

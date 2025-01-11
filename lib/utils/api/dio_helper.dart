@@ -16,6 +16,10 @@ class TDioHelper {
       BaseOptions(
         baseUrl: TApiConstants.baseUrl,
         receiveDataWhenStatusError: true,
+        followRedirects: true,
+        validateStatus: (status) {
+          return status != null && status < 500;
+        },
         // followRedirects: true,
       ),
     );
@@ -36,10 +40,13 @@ class TDioHelper {
 
   Future<Map<String, dynamic>> post(String endPoint, dynamic data, {String lang = 'en', String? token}) async {
     dio.options.headers = {
-      'Content-Type': data is FormData ? 'multipart/form-data' : 'application/json',
+      'Content-Type': 'application/json',
       'lang': lang,
       'Authorization': token != null ? 'Bearer $token' : '',
     };
+
+    dio.options.followRedirects = false;
+    dio.options.validateStatus = (status) => status! < 500;
 
     final response = await dio.post(endPoint, data: data);
     return _handleResponse(response);
