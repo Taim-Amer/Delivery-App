@@ -44,4 +44,8 @@ class TApiConstants {
 
   static const String deleteOrder = 'orders';
 
+  static const String searchStore = 'store/search';
+
+  static const String searchProduct = 'product/search';
+
 }

@@ -9,12 +9,14 @@ import 'package:delivery_app/features/shop/models/get_cart_items_model.dart';
 import 'package:delivery_app/features/shop/models/orders_model.dart';
 import 'package:delivery_app/features/shop/models/product_details_model.dart';
 import 'package:delivery_app/features/shop/models/product_model.dart';
+import 'package:delivery_app/features/shop/models/product_search_model.dart';
 import 'package:delivery_app/features/shop/models/update_cart_model.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/navigation_menu.dart';
 import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:delivery_app/utils/logging/logger.dart';
+import 'package:delivery_app/utils/storage/cache_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +34,7 @@ class ProductsController extends GetxController{
   Rx<RequestState> addFavouritesApiStatus = RequestState.begin.obs;
   Rx<RequestState> deleteFavouritesApiStatus = RequestState.begin.obs;
   Rx<RequestState> getOrdersApiStatus = RequestState.begin.obs;
+  Rx<RequestState> productSearchApiStatus = RequestState.begin.obs;
 
   final productsModel = ProductModel().obs;
   final productDetailsModel = ProductDetailsModel().obs;
@@ -44,9 +47,11 @@ class ProductsController extends GetxController{
   final addFavouriteModel = AddFavouriteModel().obs;
   final deleteFavouriteModel = DeleteFavouriteModel().obs;
   final ordersModel = OrdersModel().obs;
+  final searchProductModel = ProductSearchModel().obs;
 
   final updateCartController = TextEditingController();
   final updateOrderController = TextEditingController();
+  final searchProductController = TextEditingController();
 
   Rx<int> quantity = 0.obs;
   // RxBool isFavourite = false.obs;
@@ -237,6 +242,20 @@ class ProductsController extends GetxController{
       TLoggerHelper.error(productID.toString());
       THelperFunctions.updateApiStatus(target: deleteFavouritesApiStatus, value: RequestState.error);
       showSnackBar("An error occurred while removing from favourites", AlertState.error);
+    });
+  }
+  
+  Future<void> searchProduct() async{
+    THelperFunctions.updateApiStatus(target: productSearchApiStatus, value: RequestState.loading);
+    await ProductsRepoImpl.instance.searchProduct(
+      storeID: TCacheHelper.getData(key: 'storeID'), 
+      productName: searchProductController.text.toString(),
+    ).then((response){
+      searchProductModel.value = response;
+      THelperFunctions.updateApiStatus(target: productSearchApiStatus, value: RequestState.success);
+    }).catchError((error){
+      THelperFunctions.updateApiStatus(target: productSearchApiStatus, value: RequestState.error);
+      showSnackBar("An error occurred or product not found, please try again", AlertState.warning);
     });
   }
 }

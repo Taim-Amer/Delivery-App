@@ -8,6 +8,7 @@ import 'package:delivery_app/features/shop/models/get_cart_items_model.dart';
 import 'package:delivery_app/features/shop/models/orders_model.dart';
 import 'package:delivery_app/features/shop/models/product_details_model.dart';
 import 'package:delivery_app/features/shop/models/product_model.dart';
+import 'package:delivery_app/features/shop/models/product_search_model.dart';
 import 'package:delivery_app/features/shop/models/update_cart_model.dart';
 
 abstract class ProductsRepo{
@@ -27,5 +28,7 @@ abstract class ProductsRepo{
   Future<OrdersModel> getAllOrder();
   Future<void> updateOrder({required int orderID, required int quantity});
   Future<void> deleteOrder({required int orderID});
+
+  Future<ProductSearchModel> searchProduct({required int storeID, required String productName});
 
 }

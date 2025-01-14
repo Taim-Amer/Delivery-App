@@ -1,6 +1,7 @@
 import 'package:delivery_app/features/shop/models/store_details_model.dart';
 import 'package:delivery_app/features/shop/models/store_model.dart';
 import 'package:delivery_app/features/shop/models/store_products_model.dart';
+import 'package:delivery_app/features/shop/models/store_search_model.dart';
 import 'package:delivery_app/features/shop/repositories/store/store_repo.dart';
 import 'package:delivery_app/utils/api/dio_helper.dart';
 import 'package:delivery_app/utils/constants/api_constants.dart';
@@ -35,4 +36,20 @@ class StoreRepoImpl implements StoreRepo{
       token: token,
     ).then((response) => StoreProductsModel.fromJson(response));
   }
+
+  @override
+  Future<StoreSearchModel> searchStore({required String storeName}) async {
+    if (storeName.length >= 2) {
+      final dioHelper = TDioHelper();
+      return await dioHelper
+          .get("${TApiConstants.searchStore}/$storeName", token: token)
+          .then((response) => StoreSearchModel.fromJson(response));
+    } else {
+      return StoreSearchModel(
+        l0: [],
+        message: "Store name must have at least 2 characters",
+      );
+    }
+  }
+
 }

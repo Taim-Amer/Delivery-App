@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:delivery_app/utils/constants/api_constants.dart';
 import 'package:http/http.dart' as http;
@@ -58,5 +60,4 @@ class THttpClient {
       throw Exception("Failed to load data : ${response.statusCode}");
     }
   }
-
 }

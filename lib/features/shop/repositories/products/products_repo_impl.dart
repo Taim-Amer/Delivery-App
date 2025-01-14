@@ -8,6 +8,7 @@ import 'package:delivery_app/features/shop/models/get_cart_items_model.dart';
 import 'package:delivery_app/features/shop/models/orders_model.dart';
 import 'package:delivery_app/features/shop/models/product_details_model.dart';
 import 'package:delivery_app/features/shop/models/product_model.dart';
+import 'package:delivery_app/features/shop/models/product_search_model.dart';
 import 'package:delivery_app/features/shop/models/update_cart_model.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo.dart';
 import 'package:delivery_app/utils/api/dio_helper.dart';
@@ -142,5 +143,11 @@ class ProductsRepoImpl implements ProductsRepo{
   Future<void> updateOrder({required int orderID, required int quantity}) async{
     final dioHelper = TDioHelper();
     await dioHelper.put("${TApiConstants.updateOrder}/$orderID", token: token, {'quantity' : quantity});
+  }
+
+  @override
+  Future<ProductSearchModel> searchProduct({required int storeID, required String productName}) async{
+    final dioHelper = TDioHelper();
+    return await dioHelper.get("${TApiConstants.searchStore}/$storeID/$productName", token: token).then((response) => ProductSearchModel.fromJson(response));
   }
 }
