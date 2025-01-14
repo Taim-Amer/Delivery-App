@@ -48,4 +48,6 @@ class TApiConstants {
 
   static const String searchProduct = 'product/search';
 
+  static const String logout = 'logout';
+
 }

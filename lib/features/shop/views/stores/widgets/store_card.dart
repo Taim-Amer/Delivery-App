@@ -7,6 +7,7 @@ import 'package:delivery_app/features/shop/views/stores/store_details_screen.dar
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
+import 'package:delivery_app/utils/storage/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class StoreCard extends StatelessWidget {
       onTap: () {
         StoreController.instance.getStoreProducts(storeID: storeID);
         Get.to(() => StoreDetailsScreen(name: name, location: location, image: image, represents: represents, storeID: storeID));
+        TCacheHelper.saveData(key: 'storeID', value: storeID);
       },
       child: Container(
         width: THelperFunctions.screenWidth(context) - 60,

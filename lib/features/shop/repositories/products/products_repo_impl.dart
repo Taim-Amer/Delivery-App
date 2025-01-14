@@ -147,16 +147,23 @@ class ProductsRepoImpl implements ProductsRepo{
 
   @override
   Future<ProductSearchModel> searchProduct({required int storeID, required String productName}) async{
+    print(TCacheHelper.getData(key: "storeID"));
+    final dioHelper = TDioHelper();
+    return await dioHelper.get("${TApiConstants.searchStore}/$storeID/$productName", token: token).then((response) => ProductSearchModel.fromJson(response));
     if (productName.length >= 2) {
       final dioHelper = TDioHelper();
-      return await dioHelper
-          .get("${TApiConstants.searchStore}/$storeID/$productName", token: token)
-          .then((response) => ProductSearchModel.fromJson(response));
+      return await dioHelper.get("${TApiConstants.searchStore}/$storeID/$productName", token: token).then((response) => ProductSearchModel.fromJson(response));
     } else {
       return ProductSearchModel(
         l0: [],
         message: "Product name must have at least 2 characters",
       );
     }
+  }
+
+  @override
+  Future<void> logout() {
+    final dioHelper = TDioHelper();
+    return dioHelper.get(TApiConstants.logout, token: token);
   }
 }

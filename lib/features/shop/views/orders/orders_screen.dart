@@ -3,12 +3,14 @@ import 'package:delivery_app/features/personal/widgets/theme_icon.dart';
 import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/cart/widgets/cart_menu_icon.dart';
+import 'package:delivery_app/features/shop/views/home/search_screen.dart';
 import 'package:delivery_app/features/shop/views/orders/widgets/orders_card.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({super.key});
@@ -26,12 +28,7 @@ class OrdersScreen extends StatelessWidget {
           await ProductsController.instance.getAllOrders();
         },
         child: Scaffold(
-          appBar: TAppBar(actions: [Row(
-            children: [
-              const ThemeIcon(),
-              CartCounterIcon(onPressed: (){}),
-            ],
-          )]),
+          appBar: TAppBar(leadingIcon: Iconsax.logout, leadingOnPressed: () => ProductsController.instance.logout()),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
             child: ListView.separated(

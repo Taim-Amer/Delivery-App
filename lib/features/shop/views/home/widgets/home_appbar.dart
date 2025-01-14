@@ -15,13 +15,9 @@ class THomeAppBar extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     return TAppBar(
       actions: [
-        Row(
-          children: [
-            IconButton(onPressed: () => Get.to(() => const SearchScreen()), icon: Icon(Icons.search, color: dark ? TColors.light : TColors.dark,)),
-            const ThemeIcon(),
-            CartCounterIcon(onPressed: (){}, iconColor: TColors.white,),
-          ],
-        ),
+        IconButton(onPressed: () => Get.to(() => const SearchScreen(isStore: true)), icon: Icon(Icons.search, color: dark ? TColors.light : TColors.dark,)),
+        const ThemeIcon(),
+        CartCounterIcon(onPressed: (){}, iconColor: TColors.white,),
       ],
     );
   }

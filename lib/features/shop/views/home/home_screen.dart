@@ -2,6 +2,7 @@ import 'package:delivery_app/features/shop/controllers/products_controller.dart'
 import 'package:delivery_app/features/shop/controllers/store_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/repositories/store/store_repo_impl.dart';
+import 'package:delivery_app/features/shop/views/home/search_screen.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/home_products_list.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/home_shimmer.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/home_stores_list.dart';

@@ -1,4 +1,5 @@
 import 'package:delivery_app/common/widgets/alerts/snackbar.dart';
+import 'package:delivery_app/features/authentication/views/signin/login_screen.dart';
 import 'package:delivery_app/features/shop/models/add_favourite_model.dart';
 import 'package:delivery_app/features/shop/models/add_to_cart_model.dart';
 import 'package:delivery_app/features/shop/models/apply_model.dart';
@@ -246,6 +247,9 @@ class ProductsController extends GetxController{
   }
   
   Future<void> searchProduct() async{
+    print(TCacheHelper.getData(key: 'storeID'));
+    print(TCacheHelper.getData(key: 'storeID'));
+    print(TCacheHelper.getData(key: 'storeID'));
     THelperFunctions.updateApiStatus(target: productSearchApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.searchProduct(
       storeID: TCacheHelper.getData(key: 'storeID'), 
@@ -256,6 +260,15 @@ class ProductsController extends GetxController{
     }).catchError((error){
       THelperFunctions.updateApiStatus(target: productSearchApiStatus, value: RequestState.error);
       showSnackBar("An error occurred or product not found, please try again", AlertState.warning);
+    });
+  }
+
+  Future<void> logout() async{
+    await ProductsRepoImpl.instance.logout().then((response){
+      Get.offAll(const SigninScreen());
+    }).catchError((error){
+      THelperFunctions.updateApiStatus(target: productSearchApiStatus, value: RequestState.error);
+      showSnackBar("An error occurred,", AlertState.error);
     });
   }
 }

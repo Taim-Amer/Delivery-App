@@ -30,5 +30,6 @@ abstract class ProductsRepo{
   Future<void> deleteOrder({required int orderID});
 
   Future<ProductSearchModel> searchProduct({required int storeID, required String productName});
+  Future<void> logout();
 
 }
