@@ -28,7 +28,7 @@ class ProductImageSlider extends StatelessWidget {
                 imageUrl: image,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => const ShimmerLoader(width: double.infinity, height: double.infinity),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => const Center(child: Icon(Icons.error, size: 40,)),
               ),
             ),
           ),

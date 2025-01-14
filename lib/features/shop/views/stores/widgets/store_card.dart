@@ -46,20 +46,22 @@ class StoreCard extends StatelessWidget {
                 child: SizedBox(height: 120, width: 120, child: TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true)),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TBrandTitleWithVerifiedIcon(title: name),
-                SizedBox(
-                  width: 172,
-                  child: TProductTitleText(title: location, smallSize: true),
-                ),
-                SizedBox(
-                  width: 172,
-                  child: TProductTitleText(title: represents, smallSize: true),
-                ),
-              ],
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TBrandTitleWithVerifiedIcon(title: name),
+                  SizedBox(
+                    width: 172,
+                    child: TProductTitleText(title: location, smallSize: true),
+                  ),
+                  SizedBox(
+                    width: 172,
+                    child: TProductTitleText(title: represents, smallSize: true),
+                  ),
+                ],
+              ),
             )
           ],
         ),

@@ -24,7 +24,7 @@ abstract class ProductsRepo{
   Future<FavouriteModel> getAllFavourites();
   Future<AddFavouriteModel> addFavourite({required int productID});
   Future<DeleteFavouriteModel> deleteFavourite({required int productID});
-  //
+
   Future<OrdersModel> getAllOrder();
   Future<void> updateOrder({required int orderID, required int quantity});
   Future<void> deleteOrder({required int orderID});

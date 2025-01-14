@@ -1,7 +1,6 @@
 import 'package:delivery_app/common/widgets/texts/section_heading.dart';
 import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/controllers/store_controller.dart';
-import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/favourites/widgets/favourites_shimmer.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/rating_share_widget.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/store_image.dart';
@@ -55,7 +54,7 @@ class StoreDetailsScreen extends StatelessWidget {
                     const SectionHeading(title: "Products", showActionButton: false,),
                     const SizedBox(height: TSizes.spaceBtwItems),
 
-                    Obx(() => StoreController.instance.getStoreProductsApiStatus.value == RequestState.loading ? const FavouritesShimmer() : const StoreProductsGrid()),
+                    Obx(() => StoreController.instance.getStoreProductsApiStatus.value == RequestState.loading ? const SizedBox(height: 600,child: FavouritesShimmer()) : const SizedBox(height: 600,child: StoreProductsGrid())),
                     const SizedBox(height: TSizes.spaceBtwItems,),
                   ],
                 ),
