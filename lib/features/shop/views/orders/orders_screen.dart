@@ -1,14 +1,15 @@
 import 'package:delivery_app/common/widgets/appbar/appbar.dart';
-import 'package:delivery_app/features/personal/widgets/theme_icon.dart';
+import 'package:delivery_app/common/widgets/loaders/shimmer_loader.dart';
 import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
-import 'package:delivery_app/features/shop/views/cart/widgets/cart_menu_icon.dart';
-import 'package:delivery_app/features/shop/views/home/search_screen.dart';
-import 'package:delivery_app/features/shop/views/orders/widgets/orders_card.dart';
+import 'package:delivery_app/features/shop/views/orders/widgets/order_item.dart';
+import 'package:delivery_app/features/shop/views/orders/widgets/orders_shimmer.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
+import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -31,12 +32,14 @@ class OrdersScreen extends StatelessWidget {
           appBar: TAppBar(leadingIcon: Iconsax.logout, leadingOnPressed: () => ProductsController.instance.logout()),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-            child: ListView.separated(
-              itemBuilder: (context, index) => OrdersCard(price: ordersList?[index].totalCost ?? 0, orderID:  ordersList?[index].id ?? 0),
-              separatorBuilder: (_, index) => const SizedBox(height: TSizes.spaceBtwItems),
-              itemCount: ordersList?.length ?? 0,
-            ),
+              child: Obx(() => ProductsController.instance.getOrdersApiStatus.value == RequestState.loading ? const OrdersShimmer() : ListView.separated(
+                itemCount: ordersList?.length ?? 0,
+                shrinkWrap: true,
+                itemBuilder: (_, index) => OrderItem(price: ordersList?[index].totalCost ?? 0, orderID:  ordersList?[index].id ?? 0),
+                separatorBuilder: (_, index) => const SizedBox(height: TSizes.spaceBtwItems),
+              ))
           ),
-        ));
+        ),
+    );
   }
 }

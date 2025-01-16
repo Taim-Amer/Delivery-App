@@ -34,6 +34,7 @@ class SearchScreen extends StatelessWidget {
         controller: isStore ? StoreController.instance.searchStoreController : ProductsController.instance.searchProductController,
         // onChanged: (value) => isStore ? StoreController.instance.searchStore() : ProductsController.instance.searchProduct(),
         // onTap: () => isStore ? StoreController.instance.searchStore() : ProductsController.instance.searchProduct(),
+        enableInteractiveSelection: false,
         onFieldSubmitted: (value) => isStore ? StoreController.instance.searchStore() : ProductsController.instance.searchProduct(),
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.search),

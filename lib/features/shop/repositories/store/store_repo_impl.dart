@@ -41,9 +41,7 @@ class StoreRepoImpl implements StoreRepo{
   Future<StoreSearchModel> searchStore({required String storeName}) async {
     if (storeName.length >= 2) {
       final dioHelper = TDioHelper();
-      return await dioHelper
-          .get("${TApiConstants.searchStore}/$storeName", token: token)
-          .then((response) => StoreSearchModel.fromJson(response));
+      return await dioHelper.get("${TApiConstants.searchStore}/$storeName", token: token).then((response) => StoreSearchModel.fromJson(response));
     } else {
       return StoreSearchModel(
         l0: [],

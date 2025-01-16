@@ -1,9 +1,7 @@
 import 'package:delivery_app/common/widgets/appbar/appbar.dart';
-import 'package:delivery_app/common/widgets/layouts/grid_layout.dart';
 import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/cart/widgets/cart_card.dart';
-import 'package:delivery_app/features/shop/views/stores/widgets/store_card.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';

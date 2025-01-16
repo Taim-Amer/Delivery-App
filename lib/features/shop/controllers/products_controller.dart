@@ -54,7 +54,7 @@ class ProductsController extends GetxController{
   final updateOrderController = TextEditingController();
   final searchProductController = TextEditingController();
 
-  Rx<int> quantity = 0.obs;
+  Rx<int> quantity = 1.obs;
   // RxBool isFavourite = false.obs;
 
   @override

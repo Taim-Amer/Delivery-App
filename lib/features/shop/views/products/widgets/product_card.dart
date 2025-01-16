@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget {
             backgroundColor: dark ? TColors.dark : TColors.light,
             child: Stack(
               children: [
-                TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true, onPressed: () => Get.to(() => ProductDetailsScreen(productID: productID, name: name, price: price, availableQuantity: availableQuantity, imageProduct: image, productionDate: productionDate, expiryDate: expiryDate))),
+                TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true, backgroundColor: dark ? TColors.black : TColors.light, onPressed: () => Get.to(() => ProductDetailsScreen(productID: productID, name: name, price: price, availableQuantity: availableQuantity, imageProduct: image, productionDate: productionDate, expiryDate: expiryDate))),
                 Positioned(
                   bottom: 12,
                   child: TRoundedContainer(
