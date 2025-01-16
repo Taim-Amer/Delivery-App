@@ -1,3 +1,4 @@
+import 'package:delivery_app/features/shop/controllers/products_controller.dart';
 import 'package:delivery_app/features/shop/views/cart/cart_screen.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
@@ -23,9 +24,9 @@ class CartCounterIcon extends StatelessWidget {
             width: 18,
             height: 18,
             decoration: BoxDecoration(color: TColors.dark, borderRadius: BorderRadius.circular(100)),
-            child: Center(
-              child: Text("2" , style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.white, fontSizeFactor: .8)),
-            ),
+            child: Obx(() => Center(
+              child: Text(ProductsController.instance.cartItemsModel.value.data?.length.toString() ?? "0" , style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.white, fontSizeFactor: .8)),
+            )),
           ),
         ),
       ],

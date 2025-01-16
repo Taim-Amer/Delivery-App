@@ -4,12 +4,10 @@ import 'package:delivery_app/features/shop/controllers/products_controller.dart'
 import 'package:delivery_app/features/shop/controllers/store_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/repositories/store/store_repo_impl.dart';
-import 'package:delivery_app/features/shop/views/favourites/widgets/favourites_shimmer.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/product_search_shimmer.dart';
 import 'package:delivery_app/features/shop/views/home/widgets/store_search_shimmer.dart';
 import 'package:delivery_app/features/shop/views/products/widgets/product_card.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/store_card.dart';
-import 'package:delivery_app/features/shop/views/stores/widgets/stores_shimmer.dart';
 import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
@@ -34,7 +32,7 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       appBar: TAppBar(showBackArrow: true, title: TextFormField(
         controller: isStore ? StoreController.instance.searchStoreController : ProductsController.instance.searchProductController,
-        // onChanged: (value) => isStore ? StoreController.instance.searchStore() : ProductsController.instance.searchProduct(),
+        onChanged: (value) => isStore ? StoreController.instance.searchStore() : ProductsController.instance.searchProduct(),
         // onTap: () => isStore ? StoreController.instance.searchStore() : ProductsController.instance.searchProduct(),
         enableInteractiveSelection: false,
         onFieldSubmitted: (value) => isStore ? StoreController.instance.searchStore() : ProductsController.instance.searchProduct(),

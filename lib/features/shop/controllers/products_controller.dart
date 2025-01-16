@@ -60,6 +60,7 @@ class ProductsController extends GetxController{
   @override
   void onReady() {
     getAllProducts();
+    getCartItems();
     getAllFavourites();
     getCartItems();
     getAllOrders();
@@ -143,8 +144,10 @@ class ProductsController extends GetxController{
     THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.update(productID: productID, quantity: quantity).then((response) {
       updateModel.value = response;
-      showSnackBar(response.message ?? '', AlertState.success);
       THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.success);
+      showSnackBar(response.message ?? '', AlertState.success);
+      showSnackBar(response.message ?? '', AlertState.success);
+
       Get.back();
     }).catchError((error){
       TLoggerHelper.error(error.toString());
@@ -238,6 +241,8 @@ class ProductsController extends GetxController{
       THelperFunctions.updateApiStatus(target: deleteFavouritesApiStatus, value: RequestState.success);
       // isFavourite.value = false;
       showSnackBar("Product removed from favourites successfully", AlertState.success);
+      ProductsController.instance.favouritesModel.value.data?.removeWhere((item) => item.pivot?.id == productID);
+      ProductsController.instance.favouritesModel.refresh();
       getAllFavourites();
     }).catchError((error) {
       // isFavourite.value = true;

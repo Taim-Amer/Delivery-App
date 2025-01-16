@@ -5,6 +5,7 @@ import 'package:delivery_app/common/widgets/texts/product_title_text.dart';
 import 'package:delivery_app/features/shop/controllers/store_controller.dart';
 import 'package:delivery_app/features/shop/views/stores/store_details_screen.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
+import 'package:delivery_app/utils/constants/enums.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
 import 'package:delivery_app/utils/helpers/helper_functions.dart';
 import 'package:delivery_app/utils/storage/cache_helper.dart';
@@ -49,20 +50,23 @@ class StoreCard extends StatelessWidget {
               ),
             ),
             Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TBrandTitleWithVerifiedIcon(title: name),
-                  SizedBox(
-                    width: 172,
-                    child: TProductTitleText(title: location, smallSize: true),
-                  ),
-                  SizedBox(
-                    width: 172,
-                    child: TProductTitleText(title: represents, smallSize: true),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TBrandTitleWithVerifiedIcon(title: name, brandTextSize: TextSizes.medium),
+                    SizedBox(
+                      width: 172,
+                      child: TProductTitleText(title: location, smallSize: true),
+                    ),
+                    SizedBox(
+                      width: 172,
+                      child: TProductTitleText(title: represents, smallSize: true),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

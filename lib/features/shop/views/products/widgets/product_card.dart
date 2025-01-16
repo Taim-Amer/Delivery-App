@@ -60,8 +60,8 @@ class ProductCard extends StatelessWidget {
                     bottom: 0,
                     right: 0,
                   child: TCircularIcon(
-                    icon: Iconsax.heart5,
-                    color: Colors.red,
+                    icon: favourite ? Iconsax.heart_remove : Iconsax.heart_add,
+                    color: favourite ? Colors.blueAccent : Colors.red,
                     width: 40,
                     height: 40,
                     backgroundColor: dark ? TColors.darkerGrey : TColors.light,
