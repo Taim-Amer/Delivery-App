@@ -39,7 +39,7 @@ class Data {
     id = json['id'];
     userId = json['user_id'];
     productId = json['product_id'];
-    quantity = json['quantity'];
+    quantity = json['quantity'].toString();
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }

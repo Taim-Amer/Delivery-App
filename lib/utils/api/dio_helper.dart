@@ -56,7 +56,7 @@ class TDioHelper {
     dio.options.headers = {
       'Content-Type': 'application/json',
       'lang': lang,
-      'Authorization': token ?? '',
+      'Authorization': token != null ? 'Bearer $token' : '',
     };
 
     final response = await dio.put(endPoint, data: data);
@@ -78,7 +78,7 @@ class TDioHelper {
     dio.options.headers = {
       'Content-Type': 'application/json',
       'lang': lang,
-      'Authorization': token ?? '',
+      'Authorization': token != null ? 'Bearer $token' : '',
     };
 
     final response = await dio.delete(endPoint);

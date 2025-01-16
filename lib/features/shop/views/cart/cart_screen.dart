@@ -38,7 +38,7 @@ class CartScreen extends StatelessWidget {
               name: cartList?[index].name ?? '',
               price: cartList?[index].price ?? 0,
               image: cartList?[index].imageProduct ?? '',
-              productID: cartList?[index].id ?? 0,
+              productID: cartList?[index].pivot?.id ?? 0,
               availableQuantity: cartList?[index].availableQuantity ?? 0,
               productionDate: cartList?[index].productionDate ?? '',
               expiryDate: cartList?[index].expiryDate ?? '',

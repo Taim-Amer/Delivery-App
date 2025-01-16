@@ -5,6 +5,8 @@ import 'package:delivery_app/features/shop/controllers/store_controller.dart';
 import 'package:delivery_app/features/shop/repositories/products/products_repo_impl.dart';
 import 'package:delivery_app/features/shop/repositories/store/store_repo_impl.dart';
 import 'package:delivery_app/features/shop/views/favourites/widgets/favourites_shimmer.dart';
+import 'package:delivery_app/features/shop/views/home/widgets/product_search_shimmer.dart';
+import 'package:delivery_app/features/shop/views/home/widgets/store_search_shimmer.dart';
 import 'package:delivery_app/features/shop/views/products/widgets/product_card.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/store_card.dart';
 import 'package:delivery_app/features/shop/views/stores/widgets/stores_shimmer.dart';
@@ -43,42 +45,37 @@ class SearchScreen extends StatelessWidget {
       )),
       body: Padding(
         padding: const EdgeInsets.all(TSizes.defaultSpace),
-        child: ListView(
-          children: [
-            // TSizes.spaceBtwSections.verticalSpace,
-            Obx(() => isStore ? StoreController.instance.storeSearchApiStatus.value == RequestState.loading ? const StoresShimmer() : SizedBox(
-              height: THelperFunctions.screenHeight(context),
-              child: ListView.separated(
-                itemBuilder: (context, index) => StoreCard(
-                  name: storesList?[index].name ?? "",
-                  location: storesList?[index].location ?? "",
-                  image: storesList?[index].imageStore ?? "",
-                  represents: storesList?[index].represents ?? "",
-                  storeID: storesList?[index].id ?? 0,
-                ),
-                separatorBuilder: (_, index) => const SizedBox(height: TSizes.spaceBtwItems),
-                itemCount: storesList?.length ?? 0,
-              ),
-            ) : ProductsController.instance.productSearchApiStatus.value == RequestState.loading ? const FavouritesShimmer(): SizedBox(
-              height: THelperFunctions.screenHeight(context),
-              child: TGridLayout(
-                itemCount: productList?.length ?? 0,
-                physics: const AlwaysScrollableScrollPhysics() ,
-                itemBuilder: (_, index) => ProductCard(
-                  name: productList?[index].name ?? "",
-                  price: productList?[index].price ?? 0,
-                  image: productList?[index].imageProduct ?? "",
-                  productID: productList?[index].id ?? 0,
-                  availableQuantity: productList?[index].availableQuantity ?? 0,
-                  productionDate: productList?[index].productionDate ?? "",
-                  expiryDate: productList?[index].expiryDate ?? "",
-                  favourite: false,
-                ),
-                mainAxisExtent: 288,
-              ),
-            ))
-          ],
-        ),
+        child: Obx(() => isStore ? StoreController.instance.storeSearchApiStatus.value == RequestState.loading ? const StoreSearchShimmer() : SizedBox(
+          height: THelperFunctions.screenHeight(context),
+          child: ListView.separated(
+            itemBuilder: (context, index) => StoreCard(
+              name: storesList?[index].name ?? "",
+              location: storesList?[index].location ?? "",
+              image: storesList?[index].imageStore ?? "",
+              represents: storesList?[index].represents ?? "",
+              storeID: storesList?[index].id ?? 0,
+            ),
+            separatorBuilder: (_, index) => const SizedBox(height: TSizes.spaceBtwItems),
+            itemCount: storesList?.length ?? 0,
+          ),
+        ) : ProductsController.instance.productSearchApiStatus.value == RequestState.loading ? const ProductSearchShimmer(): SizedBox(
+          height: THelperFunctions.screenHeight(context),
+          child: TGridLayout(
+            itemCount: productList?.length ?? 0,
+            physics: const AlwaysScrollableScrollPhysics() ,
+            itemBuilder: (_, index) => ProductCard(
+              name: productList?[index].name ?? "",
+              price: productList?[index].price ?? 0,
+              image: productList?[index].imageProduct ?? "",
+              productID: productList?[index].id ?? 0,
+              availableQuantity: productList?[index].availableQuantity ?? 0,
+              productionDate: productList?[index].productionDate ?? "",
+              expiryDate: productList?[index].expiryDate ?? "",
+              favourite: false,
+            ),
+            mainAxisExtent: 288,
+          ),
+        )),
       ),
     );
   }

@@ -29,6 +29,7 @@ Future<dynamic> showUpdateCartDialog(BuildContext context, {required int product
               children: [
                 TextFormField(
                   controller: ProductsController.instance.updateCartController,
+                  enableInteractiveSelection: false,
                   validator: (value) => TValidator.validateEmptyText(value, ' quantity'),
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(

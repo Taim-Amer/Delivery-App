@@ -143,7 +143,9 @@ class ProductsController extends GetxController{
     THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.update(productID: productID, quantity: quantity).then((response) {
       updateModel.value = response;
+      showSnackBar(response.message ?? '', AlertState.success);
       THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.success);
+      Get.back();
     }).catchError((error){
       TLoggerHelper.error(error.toString());
       THelperFunctions.updateApiStatus(target: updateApiStatus, value: RequestState.error);
@@ -157,6 +159,7 @@ class ProductsController extends GetxController{
       deleteModel.value = response;
       THelperFunctions.updateApiStatus(target: deleteApiStatus, value: RequestState.success);
       showSnackBar(deleteModel.value.message ?? '', AlertState.success);
+      getCartItems();
       Get.offAll(() => const NavigationMenu());
     }).catchError((error){
       TLoggerHelper.warning(error.toString());
@@ -247,9 +250,6 @@ class ProductsController extends GetxController{
   }
   
   Future<void> searchProduct() async{
-    print(TCacheHelper.getData(key: 'storeID'));
-    print(TCacheHelper.getData(key: 'storeID'));
-    print(TCacheHelper.getData(key: 'storeID'));
     THelperFunctions.updateApiStatus(target: productSearchApiStatus, value: RequestState.loading);
     await ProductsRepoImpl.instance.searchProduct(
       storeID: TCacheHelper.getData(key: 'storeID'), 
