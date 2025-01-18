@@ -46,7 +46,7 @@ class StoreCard extends StatelessWidget {
                 height: 120,
                 padding: const EdgeInsets.all(TSizes.sm),
                 backgroundColor: dark ? TColors.dark : TColors.light,
-                child: SizedBox(height: 120, width: 120, child: TRoundedImage(imageUrl: image, applyImageRadius: true, isNetworkImage: true, backgroundColor: dark ? TColors.black : TColors.light,)),
+                child: SizedBox(height: 120, width: 120, child: TRoundedImage(imageUrl: "assets/images/1-29.jpg", applyImageRadius: true, backgroundColor: dark ? TColors.black : TColors.light,)),
               ),
             ),
             Flexible(

@@ -35,7 +35,7 @@ class StoreDetailsScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              ProductImageSlider(image: image),
+              const ProductImageSlider(image: "assets/images/1-29.jpg"),
               Padding(
                 padding: const EdgeInsets.only(right: TSizes.defaultSpace, left: TSizes.defaultSpace, bottom: TSizes.defaultSpace),
                 child: Column(

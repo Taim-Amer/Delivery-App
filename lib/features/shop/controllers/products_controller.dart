@@ -72,11 +72,10 @@ class ProductsController extends GetxController{
   }
 
   void decreaseQuantity() {
-    if (quantity.value > 0) {
+    if (quantity.value > 1) {
       quantity.value = quantity.value - 1;
     }
   }
-
 
   Future<void> getAllProducts() async{
     THelperFunctions.updateApiStatus(target: getProductsApiStatus, value: RequestState.loading);

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery_app/common/widgets/appbar/appbar.dart';
 import 'package:delivery_app/common/widgets/custom_shapes/curved_edges/curved_edges_widget.dart';
 import 'package:delivery_app/common/widgets/icons/circular_icon.dart';
+import 'package:delivery_app/common/widgets/images/rounded_image.dart';
 import 'package:delivery_app/common/widgets/loaders/shimmer_loader.dart';
 import 'package:delivery_app/utils/constants/colors.dart';
 import 'package:delivery_app/utils/constants/sizes.dart';
@@ -24,12 +25,13 @@ class ProductImageSlider extends StatelessWidget {
             height: 400,
             child: Padding(
               padding: const EdgeInsets.all(TSizes.productImageRadius * 2),
-              child: CachedNetworkImage(
-                imageUrl: image,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => const ShimmerLoader(width: double.infinity, height: double.infinity),
-                errorWidget: (context, url, error) => const Center(child: Icon(Icons.error, size: 40,)),
-              ),
+              child: TRoundedImage(imageUrl: image, backgroundColor: Colors.transparent,),
+              // child: CachedNetworkImage(
+              //   imageUrl: image,
+              //   fit: BoxFit.cover,
+              //   placeholder: (context, url) => const ShimmerLoader(width: double.infinity, height: double.infinity),
+              //   errorWidget: (context, url, error) => const Center(child: Icon(Icons.error, size: 40,)),
+              // ),
             ),
           ),
           const TAppBar(showBackArrow: true)
