@@ -47,9 +47,9 @@ class TColors {
   static const Color buttonSecondary = Color(0xFF1BB1C7);
   static const Color buttonDisabled = Color(0xFFC4C4C4);
 
-  // Border Colors
-  static const Color borderPrimary = Color(0xFFD9D9D9);
-  static const Color borderSecondary = Color(0xFFE6E6E6);
+  // // Border Colors
+  // static const Color borderPrimary = Color(0xFFD9D9D9);
+  // static const Color borderSecondary = Color(0xFFE6E6E6);
 
   // Error and Validation Colors
   static const Color error = Color(0xFFD32F2F);
